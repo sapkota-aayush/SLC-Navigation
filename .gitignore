@@ -10,4 +10,5 @@ web-app/dist/
 .DS_Store
 *.log
 .vercel
+images/
 
