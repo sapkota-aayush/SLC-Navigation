@@ -1,6 +1,11 @@
 {
   "version": 2,
   "buildCommand": "cd web-app && npm install && npm run build",
-  "outputDirectory": "web-app/dist"
+  "outputDirectory": "web-app/dist",
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.9"
+    }
+  }
 }
 
