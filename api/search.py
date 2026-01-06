@@ -25,7 +25,7 @@ def handler(req):
     }
     
     if req.method == 'OPTIONS':
-        return json.dumps({}), {'statusCode': 200, 'headers': headers}
+        return {'statusCode': 200, 'headers': headers, 'body': ''}
     
     try:
         body = json.loads(req.body) if req.body else {}
@@ -33,9 +33,10 @@ def handler(req):
         search_type = body.get('type', 'destination')
         
         if not query:
-            return json.dumps({'success': False, 'error': 'Search query required'}), {
+            return {
                 'statusCode': 400,
-                'headers': headers
+                'headers': headers,
+                'body': json.dumps({'success': False, 'error': 'Search query required'})
             }
         
         node_id = None
@@ -51,27 +52,30 @@ def handler(req):
         if node_id:
             node = next((n for n in nav_system.nodes if n['id'] == node_id), None)
             if node:
-                return json.dumps({
-                    'success': True,
-                    'node_id': node_id,
-                    'name': node['name'],
-                    'type': node.get('type', ''),
-                    'matched_via': 'direct' if node_id else 'ai'
-                }), {
+                return {
                     'statusCode': 200,
-                    'headers': headers
+                    'headers': headers,
+                    'body': json.dumps({
+                        'success': True,
+                        'node_id': node_id,
+                        'name': node['name'],
+                        'type': node.get('type', ''),
+                        'matched_via': 'direct' if node_id else 'ai'
+                    })
                 }
         
-        return json.dumps({
-            'success': False,
-            'error': f'Could not find location matching "{query}". Try: Room numbers, Library, Cafeteria, etc.'
-        }), {
+        return {
             'statusCode': 404,
-            'headers': headers
+            'headers': headers,
+            'body': json.dumps({
+                'success': False,
+                'error': f'Could not find location matching "{query}". Try: Room numbers, Library, Cafeteria, etc.'
+            })
         }
     except Exception as e:
-        return json.dumps({'success': False, 'error': str(e)}), {
+        return {
             'statusCode': 500,
-            'headers': headers
+            'headers': headers,
+            'body': json.dumps({'success': False, 'error': str(e)})
         }
 

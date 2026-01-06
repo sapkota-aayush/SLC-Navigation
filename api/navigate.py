@@ -33,9 +33,10 @@ def handler(req):
     
     # Handle preflight
     if req.method == 'OPTIONS':
-        return json.dumps({}), {
+        return {
             'statusCode': 200,
-            'headers': headers
+            'headers': headers,
+            'body': ''
         }
     
     try:
@@ -45,26 +46,30 @@ def handler(req):
         use_ai = body.get('use_ai', True)
         
         if not start_location:
-            return json.dumps({'success': False, 'error': 'Start location required'}), {
+            return {
                 'statusCode': 400,
-                'headers': headers
+                'headers': headers,
+                'body': json.dumps({'success': False, 'error': 'Start location required'})
             }
         
         if not destination:
-            return json.dumps({'success': False, 'error': 'Destination required'}), {
+            return {
                 'statusCode': 400,
-                'headers': headers
+                'headers': headers,
+                'body': json.dumps({'success': False, 'error': 'Destination required'})
             }
         
         result = nav_system.navigate_from_to(start_location, destination, use_ai=use_ai)
         
-        return json.dumps(result), {
+        return {
             'statusCode': 200,
-            'headers': headers
+            'headers': headers,
+            'body': json.dumps(result)
         }
     except Exception as e:
-        return json.dumps({'success': False, 'error': str(e)}), {
+        return {
             'statusCode': 500,
-            'headers': headers
+            'headers': headers,
+            'body': json.dumps({'success': False, 'error': str(e)})
         }
 

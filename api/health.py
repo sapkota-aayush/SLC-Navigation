@@ -22,11 +22,12 @@ def handler(req):
         'Cache-Control': 'no-cache, no-store, must-revalidate'
     }
     
-    return json.dumps({
-        'status': 'ok',
-        'ai_enabled': nav_system.ai_enabled
-    }), {
+    return {
         'statusCode': 200,
-        'headers': headers
+        'headers': headers,
+        'body': json.dumps({
+            'status': 'ok',
+            'ai_enabled': nav_system.ai_enabled
+        })
     }
 

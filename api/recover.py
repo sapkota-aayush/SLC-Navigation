@@ -25,26 +25,29 @@ def handler(req):
     }
     
     if req.method == 'OPTIONS':
-        return json.dumps({}), {'statusCode': 200, 'headers': headers}
+        return {'statusCode': 200, 'headers': headers, 'body': ''}
     
     try:
         body = json.loads(req.body) if req.body else {}
         landmark = body.get('landmark', '')
         
         if not landmark:
-            return json.dumps({'success': False, 'error': 'Landmark required'}), {
+            return {
                 'statusCode': 400,
-                'headers': headers
+                'headers': headers,
+                'body': json.dumps({'success': False, 'error': 'Landmark required'})
             }
         
         result = nav_system.recover_from_landmark(landmark)
-        return json.dumps(result), {
+        return {
             'statusCode': 200,
-            'headers': headers
+            'headers': headers,
+            'body': json.dumps(result)
         }
     except Exception as e:
-        return json.dumps({'success': False, 'error': str(e)}), {
+        return {
             'statusCode': 500,
-            'headers': headers
+            'headers': headers,
+            'body': json.dumps({'success': False, 'error': str(e)})
         }
 

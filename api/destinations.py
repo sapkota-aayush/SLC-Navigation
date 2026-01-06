@@ -25,17 +25,19 @@ def handler(req):
     }
     
     if req.method == 'OPTIONS':
-        return json.dumps({}), {'statusCode': 200, 'headers': headers}
+        return {'statusCode': 200, 'headers': headers, 'body': ''}
     
     try:
         destinations = nav_system.get_available_destinations()
-        return json.dumps({'success': True, 'destinations': destinations}), {
+        return {
             'statusCode': 200,
-            'headers': headers
+            'headers': headers,
+            'body': json.dumps({'success': True, 'destinations': destinations})
         }
     except Exception as e:
-        return json.dumps({'success': False, 'error': str(e)}), {
+        return {
             'statusCode': 500,
-            'headers': headers
+            'headers': headers,
+            'body': json.dumps({'success': False, 'error': str(e)})
         }
 
