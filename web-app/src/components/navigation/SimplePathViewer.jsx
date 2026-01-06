@@ -67,11 +67,12 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
 
       {/* Large Image Area - Takes most of the screen - Hidden when instructions are open */}
       {!showInstructions && (
-      <div className="flex-1 relative bg-black min-h-0">
-        <img
-          src={step.imageUrl}
-          alt={step.title}
-          className="w-full h-full object-contain"
+      <div className="flex-1 relative bg-black min-h-0 flex items-center justify-center">
+        <div className="w-full max-w-md mx-auto aspect-[3/4] relative">
+          <img
+            src={step.imageUrl}
+            alt={step.title}
+            className="w-full h-full object-contain"
           onError={(e) => {
             console.error('Image failed to load:', step.imageUrl);
             // Try direct backend URL if proxy fails
@@ -88,10 +89,11 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
               e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ccc" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em" font-size="16"%3EImage not found%3C/text%3E%3C/svg%3E';
             }
           }}
-        />
+          />
+        </div>
         
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none" />
 
         {/* Direction indicator - top center */}
         <div className={cn(
@@ -203,7 +205,7 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
                   <img 
                     src={s.imageUrl} 
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover aspect-[3/4]"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="75"%3E%3Crect fill="%23ccc" width="100" height="75"/%3E%3C/svg%3E';
