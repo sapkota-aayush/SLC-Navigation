@@ -13,7 +13,7 @@ from ai_navigation import AINavigationSystem
 # Initialize navigation system (loaded once per container)
 nav_system = None
 
-def handler(request):
+def handler(req):
     """Vercel serverless function handler"""
     global nav_system
     
@@ -32,44 +32,39 @@ def handler(request):
     }
     
     # Handle preflight
-    if request.method == 'OPTIONS':
-        return {
+    if req.method == 'OPTIONS':
+        return json.dumps({}), {
             'statusCode': 200,
-            'headers': headers,
-            'body': ''
+            'headers': headers
         }
     
     try:
-        body = json.loads(request.body) if request.body else {}
+        body = json.loads(req.body) if req.body else {}
         start_location = body.get('start_location', '')
         destination = body.get('destination', '')
         use_ai = body.get('use_ai', True)
         
         if not start_location:
-            return {
+            return json.dumps({'success': False, 'error': 'Start location required'}), {
                 'statusCode': 400,
-                'headers': headers,
-                'body': json.dumps({'success': False, 'error': 'Start location required'})
+                'headers': headers
             }
         
         if not destination:
-            return {
+            return json.dumps({'success': False, 'error': 'Destination required'}), {
                 'statusCode': 400,
-                'headers': headers,
-                'body': json.dumps({'success': False, 'error': 'Destination required'})
+                'headers': headers
             }
         
         result = nav_system.navigate_from_to(start_location, destination, use_ai=use_ai)
         
-        return {
+        return json.dumps(result), {
             'statusCode': 200,
-            'headers': headers,
-            'body': json.dumps(result)
+            'headers': headers
         }
     except Exception as e:
-        return {
+        return json.dumps({'success': False, 'error': str(e)}), {
             'statusCode': 500,
-            'headers': headers,
-            'body': json.dumps({'success': False, 'error': str(e)})
+            'headers': headers
         }
 

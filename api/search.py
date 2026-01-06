@@ -10,7 +10,7 @@ from ai_navigation import AINavigationSystem
 
 nav_system = None
 
-def handler(request):
+def handler(req):
     global nav_system
     if nav_system is None:
         json_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'navigation_data.json')
@@ -24,19 +24,18 @@ def handler(request):
         'Cache-Control': 'no-cache, no-store, must-revalidate'
     }
     
-    if request.method == 'OPTIONS':
-        return {'statusCode': 200, 'headers': headers, 'body': ''}
+    if req.method == 'OPTIONS':
+        return json.dumps({}), {'statusCode': 200, 'headers': headers}
     
     try:
-        body = json.loads(request.body) if request.body else {}
+        body = json.loads(req.body) if req.body else {}
         query = body.get('query', '').strip()
         search_type = body.get('type', 'destination')
         
         if not query:
-            return {
+            return json.dumps({'success': False, 'error': 'Search query required'}), {
                 'statusCode': 400,
-                'headers': headers,
-                'body': json.dumps({'success': False, 'error': 'Search query required'})
+                'headers': headers
             }
         
         node_id = None
@@ -52,30 +51,27 @@ def handler(request):
         if node_id:
             node = next((n for n in nav_system.nodes if n['id'] == node_id), None)
             if node:
-                return {
+                return json.dumps({
+                    'success': True,
+                    'node_id': node_id,
+                    'name': node['name'],
+                    'type': node.get('type', ''),
+                    'matched_via': 'direct' if node_id else 'ai'
+                }), {
                     'statusCode': 200,
-                    'headers': headers,
-                    'body': json.dumps({
-                        'success': True,
-                        'node_id': node_id,
-                        'name': node['name'],
-                        'type': node.get('type', ''),
-                        'matched_via': 'direct' if node_id else 'ai'
-                    })
+                    'headers': headers
                 }
         
-        return {
+        return json.dumps({
+            'success': False,
+            'error': f'Could not find location matching "{query}". Try: Room numbers, Library, Cafeteria, etc.'
+        }), {
             'statusCode': 404,
-            'headers': headers,
-            'body': json.dumps({
-                'success': False,
-                'error': f'Could not find location matching "{query}". Try: Room numbers, Library, Cafeteria, etc.'
-            })
+            'headers': headers
         }
     except Exception as e:
-        return {
+        return json.dumps({'success': False, 'error': str(e)}), {
             'statusCode': 500,
-            'headers': headers,
-            'body': json.dumps({'success': False, 'error': str(e)})
+            'headers': headers
         }
 
