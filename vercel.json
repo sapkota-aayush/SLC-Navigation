@@ -7,11 +7,6 @@
       "source": "/api/(.*)",
       "destination": "/api/$1"
     }
-  ],
-  "functions": {
-    "api/**/*.py": {
-      "runtime": "@vercel/python"
-    }
-  }
+  ]
 }
 
