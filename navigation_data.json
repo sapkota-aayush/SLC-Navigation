@@ -1,0 +1,539 @@
+{
+  "nodes": [
+    {
+      "id": "main_entrance",
+      "name": "Main Entrance",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Main-entrance.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "davies_hall",
+        "library",
+        "student_services",
+        "bookstore",
+        "it_services",
+        "stairs_to_floor2"
+      ],
+      "rooms": [],
+      "description": "Main entrance hall, reception desk visible"
+    },
+    {
+      "id": "davies_hall",
+      "name": "Davies Hall",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Davis-Hall.jpg",
+      "type": "hallway",
+      "floor": 1,
+      "connects_to": [
+        "main_entrance"
+      ],
+      "rooms": [],
+      "description": "Left from Main Entrance"
+    },
+    {
+      "id": "library",
+      "name": "Library",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Library.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "main_entrance"
+      ],
+      "rooms": [],
+      "description": "Straight ahead from Main Entrance"
+    },
+    {
+      "id": "student_services",
+      "name": "Student Services",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/StudentServices.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "main_entrance"
+      ],
+      "rooms": [],
+      "description": "Turn around from Main Entrance"
+    },
+    {
+      "id": "bookstore",
+      "name": "BookStore",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/BookStore.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "main_entrance",
+        "career_services"
+      ],
+      "rooms": [],
+      "description": "Go straight through main hall from Main Entrance"
+    },
+    {
+      "id": "it_services",
+      "name": "IT Services",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/It-Services.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "main_entrance"
+      ],
+      "rooms": [],
+      "description": "Beside BookStore"
+    },
+    {
+      "id": "career_services",
+      "name": "Career Services",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Carrer-Services.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "bookstore",
+        "cafeteria",
+        "hallway_1"
+      ],
+      "rooms": [],
+      "description": "Continue straight past BookStore, Career Services is a room in the same hallway"
+    },
+    {
+      "id": "cafeteria",
+      "name": "Cafeteria",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Cafeteria.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "career_services",
+        "hallway_1",
+        "hallway_4"
+      ],
+      "rooms": [],
+      "description": "Continue straight past Career Services to reach Cafeteria, all in the same hallway"
+    },
+    {
+      "id": "hallway_1",
+      "name": "Main Connector Hallway",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/hallway_1.jpg",
+      "type": "pathway",
+      "floor": 1,
+      "connects_to": [
+        "career_services",
+        "cafeteria",
+        "upper_concourse",
+        "stairs_to_basement"
+      ],
+      "rooms": [],
+      "description": "Hallway between Career Services and Cafeteria, leads to Upper Concourse"
+    },
+    {
+      "id": "upper_concourse",
+      "name": "Upper Concourse",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/uppercourse.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "hallway_1",
+        "events_banquet",
+        "surge",
+        "hallway_2"
+      ],
+      "rooms": [],
+      "description": "Large open area with Events and Banquet, Surge, and access to Fitness Center"
+    },
+    {
+      "id": "events_banquet",
+      "name": "Events and Banquet",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/EventsAndBanquet.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "upper_concourse"
+      ],
+      "rooms": [],
+      "description": "Located in Upper Concourse area"
+    },
+    {
+      "id": "surge",
+      "name": "Surge",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Surge.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "upper_concourse"
+      ],
+      "rooms": [],
+      "description": "Basketball court area in Upper Concourse"
+    },
+    {
+      "id": "hallway_2",
+      "name": "Hallway to Fitness Center",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/hallway_2.jpg",
+      "type": "pathway",
+      "floor": 1,
+      "connects_to": [
+        "upper_concourse",
+        "hallway_3"
+      ],
+      "rooms": [],
+      "description": "Extended hallway from Upper Concourse towards Fitness Center"
+    },
+    {
+      "id": "hallway_3",
+      "name": "Hallway to Fitness Center (Extended)",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/hallway_3.jpg",
+      "type": "pathway",
+      "floor": 1,
+      "connects_to": [
+        "hallway_2",
+        "fitness_center"
+      ],
+      "rooms": [],
+      "description": "Extended hallway continuing to Fitness Center"
+    },
+    {
+      "id": "hallway_4",
+      "name": "Direct Hallway to Fitness Center",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/hallway_4.jpg",
+      "type": "pathway",
+      "floor": 1,
+      "connects_to": [
+        "cafeteria",
+        "fitness_center"
+      ],
+      "rooms": [],
+      "description": "Direct route from Cafeteria to Fitness Center, turn left past Cafeteria"
+    },
+    {
+      "id": "fitness_center",
+      "name": "Fitness Center",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/gym.jpg",
+      "type": "landmark",
+      "floor": 1,
+      "connects_to": [
+        "hallway_3",
+        "hallway_4"
+      ],
+      "rooms": [],
+      "description": "Gym and fitness facilities"
+    },
+    {
+      "id": "stairs_to_basement",
+      "name": "Stairs to Basement",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/StairstoStlarry1.jpg",
+      "type": "stairs",
+      "floor": 1,
+      "connects_to": [
+        "hallway_1",
+        "stairs_basement_2"
+      ],
+      "rooms": [],
+      "description": "First part of stairs going down to St. Larry's Pub"
+    },
+    {
+      "id": "stairs_basement_2",
+      "name": "Stairs to Basement (Continued)",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/StairstoStlarry2.jpg",
+      "type": "stairs",
+      "floor": 1,
+      "connects_to": [
+        "stairs_to_basement",
+        "st_larrys_pub"
+      ],
+      "rooms": [],
+      "description": "Second part of stairs continuing to St. Larry's Pub"
+    },
+    {
+      "id": "stairs_to_floor2",
+      "name": "Stairs to Floor 2",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/Stair1.jpg",
+      "type": "stairs",
+      "floor": 1,
+      "connects_to": [
+        "main_entrance",
+        "stairs_to_floor2_2"
+      ],
+      "rooms": [],
+      "description": "Stairs near front desk at Main Entrance, going up to Floor 2"
+    },
+    {
+      "id": "stairs_to_floor2_2",
+      "name": "Stairs to Floor 2 (Continued)",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/Stair2.jpg",
+      "type": "stairs",
+      "floor": 1,
+      "connects_to": [
+        "stairs_to_floor2",
+        "student_association_floor2"
+      ],
+      "rooms": [],
+      "description": "Second part of stairs continuing to Floor 2"
+    },
+    {
+      "id": "student_association_floor2",
+      "name": "Student Association",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/StudentAssociation.jpg",
+      "type": "landmark",
+      "floor": 2,
+      "connects_to": [
+        "stairs_to_floor2_2",
+        "hallway_1_floor2"
+      ],
+      "rooms": [],
+      "description": "Right up front from stairs, first destination on Floor 2"
+    },
+    {
+      "id": "hallway_1_floor2",
+      "name": "Hallway 1",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/halway1.jpg",
+      "type": "pathway",
+      "floor": 2,
+      "connects_to": [
+        "student_association_floor2",
+        "test_center",
+        "innovation_hub",
+        "hallway_2_floor2"
+      ],
+      "rooms": [],
+      "description": "Turn left from Student Association, Test Centers on right, Innovation Hub on left further down"
+    },
+    {
+      "id": "test_center",
+      "name": "Test Center",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/TestCenter.jpg",
+      "type": "landmark",
+      "floor": 2,
+      "connects_to": [
+        "hallway_1_floor2"
+      ],
+      "rooms": [],
+      "description": "On the right side of first hallway"
+    },
+    {
+      "id": "innovation_hub",
+      "name": "Innovation Hub",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/InnovationHub.jpg",
+      "type": "landmark",
+      "floor": 2,
+      "connects_to": [
+        "hallway_1_floor2"
+      ],
+      "rooms": [],
+      "description": "First left from first hallway, walk further down"
+    },
+    {
+      "id": "hallway_2_floor2",
+      "name": "Hallway 2",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/hallway2.jpg",
+      "type": "pathway",
+      "floor": 2,
+      "connects_to": [
+        "hallway_1_floor2",
+        "prayers_room",
+        "elevator_floor2"
+      ],
+      "rooms": [],
+      "description": "Turn left after first hallway ends, Prayers Room on right, Elevator further down"
+    },
+    {
+      "id": "prayers_room",
+      "name": "Prayers Room",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/PrayersRoom.jpg",
+      "type": "landmark",
+      "floor": 2,
+      "connects_to": [
+        "hallway_2_floor2"
+      ],
+      "rooms": [],
+      "description": "On the right side of second hallway"
+    },
+    {
+      "id": "elevator_floor2",
+      "name": "Elevator",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/Elevator.jpg",
+      "type": "stairs",
+      "floor": 2,
+      "connects_to": [
+        "hallway_2_floor2",
+        "stairs_to_floor3"
+      ],
+      "rooms": [],
+      "description": "Further down the second hallway, also connects to stairs to Floor 3"
+    },
+    {
+      "id": "alumni_office",
+      "name": "Alumni Office",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/AlumniOffice.jpg",
+      "type": "landmark",
+      "floor": 2,
+      "connects_to": [
+        "student_association_floor2"
+      ],
+      "rooms": [],
+      "description": "Connected to Student Association area"
+    },
+    {
+      "id": "stairs_to_floor3",
+      "name": "Stairs to Floor 3",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/stairs_to_floor3.jpg",
+      "type": "stairs",
+      "floor": 2,
+      "connects_to": [
+        "elevator_floor2",
+        "hallway_1_floor3"
+      ],
+      "rooms": [],
+      "description": "Stairs going up to Floor 3"
+    },
+    {
+      "id": "hallway_1_floor3",
+      "name": "Hallway 1 - Main Hallway",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_1_rooms33360-33325_33370-33405.jpg",
+      "type": "pathway",
+      "floor": 3,
+      "connects_to": [
+        "stairs_to_floor3",
+        "hallway_2_floor3"
+      ],
+      "rooms": [
+        "33360",
+        "33350",
+        "33325",
+        "33370",
+        "33405"
+      ],
+      "description": "Main hallway after stairs, turn left. Left side: 33360, 33350, 33325. Right side: 33370 (Design Studio), 33405"
+    },
+    {
+      "id": "hallway_2_floor3",
+      "name": "Hallway 2 - Small Right Hallway",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_2_rooms33340-33400_33300-33140.jpg",
+      "type": "pathway",
+      "floor": 3,
+      "connects_to": [
+        "hallway_1_floor3",
+        "exit_hallway2_floor3",
+        "hallway_3_floor3"
+      ],
+      "rooms": [
+        "33340",
+        "33400",
+        "33300",
+        "33150",
+        "33140"
+      ],
+      "description": "Small right hallway. Left side: 33340, 33400. Right side: 33300, 33150, 33140"
+    },
+    {
+      "id": "exit_hallway2_floor3",
+      "name": "Exit Hallway 2",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/exit_hallway2.jpg",
+      "type": "pathway",
+      "floor": 3,
+      "connects_to": [
+        "hallway_2_floor3"
+      ],
+      "rooms": [],
+      "description": "Exit at end of Hallway 2"
+    },
+    {
+      "id": "hallway_3_floor3",
+      "name": "Hallway 3 - Bottom Horizontal",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_3_rooms33090-33410_33080-33000.jpg",
+      "type": "pathway",
+      "floor": 3,
+      "connects_to": [
+        "hallway_2_floor3",
+        "exit_hallway3_floor3",
+        "hallway_4_floor3"
+      ],
+      "rooms": [
+        "33090",
+        "33410",
+        "33080",
+        "33000"
+      ],
+      "description": "Bottom horizontal hallway. Left side: 33090, 33410. Right side: 33080, 33000"
+    },
+    {
+      "id": "exit_hallway3_floor3",
+      "name": "Exit Hallway 3",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/exit_hallway3.jpg",
+      "type": "pathway",
+      "floor": 3,
+      "connects_to": [
+        "hallway_3_floor3"
+      ],
+      "rooms": [],
+      "description": "Exit following Hallway 3"
+    },
+    {
+      "id": "hallway_4_floor3",
+      "name": "Hallway 4 - Graphics Lab Area",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_4_rooms33050-33376_33370-33374.jpg",
+      "type": "pathway",
+      "floor": 3,
+      "connects_to": [
+        "hallway_3_floor3",
+        "hallway_5_floor3"
+      ],
+      "rooms": [
+        "33050",
+        "33376",
+        "33370",
+        "33373",
+        "33374"
+      ],
+      "description": "Left vertical hallway. Left side: 33050 (Graphics Lab), 33376. Right side: 33370 (Design Studio), 33373, 33374"
+    },
+    {
+      "id": "hallway_5_floor3",
+      "name": "Hallway 5 - To Elevators",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_5_to_elevators.jpg",
+      "type": "pathway",
+      "floor": 3,
+      "connects_to": [
+        "hallway_4_floor3",
+        "elevator_floor3"
+      ],
+      "rooms": [
+        "33360",
+        "33350",
+        "33325"
+      ],
+      "description": "Top horizontal hallway to elevators. Left side: 33360, 33350, 33325. Right side: Elevators, Washrooms"
+    },
+    {
+      "id": "elevator_floor3",
+      "name": "Elevator Floor 3",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_5_to_elevators.jpg",
+      "type": "stairs",
+      "floor": 3,
+      "connects_to": [
+        "hallway_5_floor3"
+      ],
+      "rooms": [],
+      "description": "Elevators on Floor 3"
+    },
+    {
+      "id": "right_of_stairs_floor3",
+      "name": "Right of Stairs",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/right_of_stairs.jpg",
+      "type": "pathway",
+      "floor": 3,
+      "connects_to": [
+        "stairs_to_floor3"
+      ],
+      "rooms": [],
+      "description": "Right side of stairs on Floor 3"
+    },
+    {
+      "id": "st_larrys_pub",
+      "name": "St. Larry's Pub",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/StLarry'sPub.jpg",
+      "type": "landmark",
+      "floor": 0,
+      "connects_to": [
+        "stairs_basement_2"
+      ],
+      "rooms": [],
+      "description": "Basement pub and social area"
+    }
+  ],
+  "start_node": "main_entrance"
+}
