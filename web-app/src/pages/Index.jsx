@@ -4,6 +4,14 @@ import { SimplePathViewer } from "@/components/navigation/SimplePathViewer";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 
+// API base URL - use environment variable or default to relative path
+const API_URL = import.meta.env.VITE_API_URL || '';
+
+// Configure axios to use API URL if provided
+if (API_URL) {
+  axios.defaults.baseURL = API_URL;
+}
+
 const Index = () => {
   const [showRoute, setShowRoute] = useState(false);
   const [routeInfo, setRouteInfo] = useState({ from: "", to: "", instructions: "" });
