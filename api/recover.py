@@ -10,7 +10,7 @@ from ai_navigation import AINavigationSystem
 
 nav_system = None
 
-def handler(req):
+def handler(request):
     global nav_system
     if nav_system is None:
         json_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'navigation_data.json')
@@ -24,11 +24,14 @@ def handler(req):
         'Cache-Control': 'no-cache, no-store, must-revalidate'
     }
     
-    if req.method == 'OPTIONS':
+    if request.method == 'OPTIONS':
         return {'statusCode': 200, 'headers': headers, 'body': ''}
     
     try:
-        body = json.loads(req.body) if req.body else {}
+        body_str = request.body if hasattr(request, 'body') else ''
+        if isinstance(body_str, bytes):
+            body_str = body_str.decode('utf-8')
+        body = json.loads(body_str) if body_str else {}
         landmark = body.get('landmark', '')
         
         if not landmark:

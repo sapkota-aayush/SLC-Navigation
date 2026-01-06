@@ -10,7 +10,7 @@ from ai_navigation import AINavigationSystem
 
 nav_system = None
 
-def handler(req):
+def handler(request):
     global nav_system
     if nav_system is None:
         json_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'navigation_data.json')

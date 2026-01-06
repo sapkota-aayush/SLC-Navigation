@@ -13,7 +13,7 @@ from ai_navigation import AINavigationSystem
 # Initialize navigation system (loaded once per container)
 nav_system = None
 
-def handler(req):
+def handler(request):
     """Vercel serverless function handler"""
     global nav_system
     
@@ -32,7 +32,7 @@ def handler(req):
     }
     
     # Handle preflight
-    if req.method == 'OPTIONS':
+    if request.method == 'OPTIONS':
         return {
             'statusCode': 200,
             'headers': headers,
@@ -40,7 +40,12 @@ def handler(req):
         }
     
     try:
-        body = json.loads(req.body) if req.body else {}
+        # Get request body
+        body_str = request.body if hasattr(request, 'body') else ''
+        if isinstance(body_str, bytes):
+            body_str = body_str.decode('utf-8')
+        body = json.loads(body_str) if body_str else {}
+        
         start_location = body.get('start_location', '')
         destination = body.get('destination', '')
         use_ai = body.get('use_ai', True)
