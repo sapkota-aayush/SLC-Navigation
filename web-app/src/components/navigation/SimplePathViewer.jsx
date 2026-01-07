@@ -100,47 +100,47 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
 
   return (
     <div className="flex flex-col h-screen bg-background relative">
-      {/* Compact Header - Hidden when instructions are open */}
+      {/* Header - Hidden when instructions are open */}
       {!showInstructions && (
-        <div className="px-2 py-1 bg-card border-b border-border flex items-center gap-1.5 shrink-0">
-          <Navigation className="w-3 h-3 text-accent shrink-0" />
+        <div className="px-4 py-3 bg-card border-b border-border flex items-center gap-3 shrink-0">
+          <Navigation className="w-5 h-5 text-accent shrink-0" />
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1 text-[9px]">
+            <div className="flex items-center gap-2 text-sm">
               <span className="truncate font-medium">{from}</span>
-              <span className="text-accent">→</span>
+              <span className="text-accent text-lg">→</span>
               <span className="truncate font-medium">{to}</span>
             </div>
             {/* Progress bar */}
-            <div className="h-0.5 bg-muted rounded-full mt-1">
+            <div className="h-1.5 bg-muted rounded-full mt-2">
               <div 
                 className="h-full bg-accent rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
               />
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {instructions && instructions.trim() && (
               <button
                 onClick={() => setShowInstructions(!showInstructions)}
                 className={cn(
-                  "flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all",
+                  "flex items-center gap-2 px-4 py-2 rounded-full transition-all",
                   "bg-accent/15 hover:bg-accent/25 text-accent border border-accent/30"
                 )}
                 title="Show text instructions"
               >
-                <MessageSquare className="w-3.5 h-3.5" />
-                <span className="text-[9px] font-semibold hidden sm:inline">Text Guide</span>
+                <MessageSquare className="w-5 h-5" />
+                <span className="text-xs font-semibold hidden sm:inline">Text Guide</span>
               </button>
             )}
-            <span className="text-[9px] font-bold text-accent shrink-0">{currentStep + 1}/{steps.length}</span>
+            <span className="text-sm font-bold text-accent shrink-0">{currentStep + 1}/{steps.length}</span>
           </div>
         </div>
       )}
 
-      {/* Large Image Area - Takes most of the screen - Hidden when instructions are open */}
+      {/* Image Area - Reduced size for better UI balance - Hidden when instructions are open */}
       {!showInstructions && (
-      <div className="flex-1 relative bg-black min-h-0 flex items-center justify-center">
-        <div className="w-full max-w-md mx-auto aspect-[3/4] relative overflow-hidden">
+      <div className="flex-1 relative bg-gradient-to-b from-background to-muted/20 min-h-0 flex items-center justify-center py-6">
+        <div className="w-full max-w-sm mx-auto aspect-[3/4] relative overflow-hidden rounded-2xl shadow-2xl border-2 border-border/50">
           <img
             ref={imgRef}
             src={step.imageUrl}
@@ -173,52 +173,52 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
         </div>
         
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none rounded-2xl" />
 
-        {/* Direction indicator - top center */}
+        {/* Direction indicator - top center - Larger */}
         <div className={cn(
-          "absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full shadow-lg font-semibold text-sm z-10",
+          "absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3 px-6 py-3 rounded-full shadow-xl font-semibold text-base z-10",
           step.direction === "destination" 
             ? "bg-green-500 text-white" 
             : "bg-accent text-accent-foreground"
         )}>
-          <DirectionIcon className="w-4 h-4" />
+          <DirectionIcon className="w-6 h-6" />
           <span>{directionLabels[step.direction]}</span>
         </div>
 
-        {/* Side navigation arrows */}
+        {/* Side navigation arrows - Larger */}
         {currentStep > 0 && (
           <button
             onClick={() => setCurrentStep(s => s - 1)}
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-md active:scale-95 z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/95 backdrop-blur-md flex items-center justify-center shadow-lg active:scale-95 z-10 transition-all hover:scale-105"
           >
-            <ChevronLeft className="w-5 h-5 text-foreground" />
+            <ChevronLeft className="w-7 h-7 text-foreground" />
           </button>
         )}
         
         {currentStep < steps.length - 1 && (
           <button
             onClick={() => setCurrentStep(s => s + 1)}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-md active:scale-95 z-10"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg active:scale-95 z-10 transition-all hover:scale-105"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-7 h-7" />
           </button>
         )}
 
-        {/* Location info - bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/95 via-black/60 to-transparent">
-          <p className="text-white/70 text-[10px] mb-0.5">Step {currentStep + 1}</p>
-          <h2 className="text-white font-display text-base font-bold">{step.title}</h2>
+        {/* Location info - bottom - Larger */}
+        <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/95 via-black/60 to-transparent rounded-b-2xl">
+          <p className="text-white/70 text-xs mb-1">Step {currentStep + 1}</p>
+          <h2 className="text-white font-display text-lg font-bold">{step.title}</h2>
         </div>
 
-        {/* Floating Instructions Button */}
+        {/* Floating Instructions Button - Larger */}
         {instructions && instructions.trim() && (
           <button
             onClick={() => setShowInstructions(true)}
-            className="absolute bottom-16 right-3 bg-accent text-accent-foreground px-4 py-2.5 rounded-full shadow-lg flex items-center gap-2 z-20 hover:shadow-xl active:scale-95 transition-all"
+            className="absolute bottom-20 right-4 bg-accent text-accent-foreground px-5 py-3 rounded-full shadow-xl flex items-center gap-3 z-20 hover:shadow-2xl active:scale-95 transition-all"
           >
-            <MessageSquare className="w-4 h-4" />
-            <span className="text-xs font-semibold">View Text Instructions</span>
+            <MessageSquare className="w-5 h-5" />
+            <span className="text-sm font-semibold">View Text Instructions</span>
           </button>
         )}
       </div>
@@ -263,10 +263,10 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
         </div>
       )}
 
-      {/* Thumbnail strip - Compact at bottom - Hidden when instructions are open */}
+      {/* Thumbnail strip - Larger at bottom - Hidden when instructions are open */}
       {!showInstructions && (
-      <div className="bg-card border-t border-border p-1 shrink-0">
-        <div className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide">
+      <div className="bg-card border-t border-border p-3 shrink-0">
+        <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
           {steps.map((s, index) => {
             const isActive = index === currentStep;
             const isPast = index < currentStep;
@@ -276,10 +276,10 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
                 <button
                   onClick={() => setCurrentStep(index)}
                   className={cn(
-                    "relative rounded overflow-hidden transition-all",
+                    "relative rounded-lg overflow-hidden transition-all",
                     isActive 
-                      ? "w-12 h-8 ring-1 ring-accent" 
-                      : "w-9 h-6"
+                      ? "w-16 h-12 ring-2 ring-accent shadow-lg" 
+                      : "w-12 h-9"
                   )}
                 >
                   <img 
@@ -292,7 +292,7 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
                     }}
                   />
                   <div className={cn(
-                    "absolute inset-0 flex items-center justify-center text-white text-[9px] font-bold",
+                    "absolute inset-0 flex items-center justify-center text-white text-xs font-bold",
                     isPast ? "bg-accent/70" : isActive ? "bg-transparent" : "bg-black/50"
                   )}>
                     {!isActive && (isPast ? "✓" : index + 1)}
@@ -301,7 +301,7 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
                 
                 {index < steps.length - 1 && (
                   <div className={cn(
-                    "w-1 h-0.5 mx-0.5",
+                    "w-2 h-1 mx-1 rounded-full",
                     isPast ? "bg-accent" : "bg-border"
                   )} />
                 )}
