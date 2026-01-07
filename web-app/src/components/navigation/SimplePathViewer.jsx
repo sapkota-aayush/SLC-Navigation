@@ -124,14 +124,14 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none rounded-2xl" />
 
-        {/* Direction indicator - top center - Larger */}
+        {/* Direction indicator - top center - Smaller and more transparent */}
         <div className={cn(
-          "absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3 px-6 py-3 rounded-full shadow-xl font-semibold text-base z-10",
+          "absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full shadow-lg font-semibold text-sm z-10 backdrop-blur-sm",
           step.direction === "destination" 
-            ? "bg-green-500 text-white" 
-            : "bg-accent text-accent-foreground"
+            ? "bg-green-500/90 text-white" 
+            : "bg-accent/85 text-accent-foreground"
         )}>
-          <DirectionIcon className="w-6 h-6" />
+          <DirectionIcon className="w-4 h-4" />
           <span>{directionLabels[step.direction]}</span>
         </div>
 
@@ -160,14 +160,14 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
           <h2 className="text-white font-display text-lg font-bold">{step.title}</h2>
         </div>
 
-        {/* Floating Instructions Button - Larger */}
+        {/* Floating Instructions Button - Smaller and more transparent */}
         {instructions && instructions.trim() && (
           <button
             onClick={() => setShowInstructions(true)}
-            className="absolute bottom-20 right-4 bg-accent text-accent-foreground px-5 py-3 rounded-full shadow-xl flex items-center gap-3 z-20 hover:shadow-2xl active:scale-95 transition-all"
+            className="absolute bottom-16 right-3 bg-accent/85 backdrop-blur-sm text-accent-foreground px-3 py-2 rounded-full shadow-lg flex items-center gap-2 z-20 hover:bg-accent hover:shadow-xl active:scale-95 transition-all"
           >
-            <MessageSquare className="w-5 h-5" />
-            <span className="text-sm font-semibold">View Text Instructions</span>
+            <MessageSquare className="w-4 h-4" />
+            <span className="text-xs font-semibold">Text Guide</span>
           </button>
         )}
       </div>
