@@ -227,7 +227,7 @@ const Index = () => {
 
   if (showRoute && routeSteps.length > 0) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         {/* Minimal header */}
         <header className="sticky top-0 z-50 bg-card border-b border-border">
           <div className="px-2 py-1.5 flex items-center gap-2">
@@ -262,7 +262,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <header className="bg-card border-b border-border">
         <div className="px-2 py-1.5">

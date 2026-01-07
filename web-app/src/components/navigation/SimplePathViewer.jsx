@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, MapPin, ArrowUp, CornerUpRight, CornerUpLeft, TrendingUp, Navigation, MessageSquare, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import EXIF from "exif-js";
 
 const directionIcons = {
   forward: ArrowUp,
@@ -36,70 +35,20 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
     setImageScale({ x: 1, y: 1 });
   }, [currentStep]);
 
-  // Handle image orientation on load - read EXIF data and apply correct rotation
+  // Handle image orientation on load - simple aspect ratio detection
   const handleImageLoad = (e) => {
     const img = e.target;
     
-    // Read EXIF orientation
-    EXIF.getData(img, function() {
-      const orientation = EXIF.getTag(this, "Orientation");
-      
-      if (orientation) {
-        // EXIF orientation values:
-        // 1 = Normal (0°)
-        // 3 = Rotate 180°
-        // 6 = Rotate 90° clockwise
-        // 8 = Rotate 90° counter-clockwise
-        // 2, 4, 5, 7 = Flipped (we'll handle these too)
-        
-        let rotation = 0;
-        let scaleX = 1;
-        let scaleY = 1;
-        
-        switch(orientation) {
-          case 2:
-            scaleX = -1; // Flip horizontal
-            break;
-          case 3:
-            rotation = 180;
-            break;
-          case 4:
-            scaleY = -1; // Flip vertical
-            break;
-          case 5:
-            rotation = -90;
-            scaleX = -1;
-            break;
-          case 6:
-            rotation = 90;
-            break;
-          case 7:
-            rotation = 90;
-            scaleX = -1;
-            break;
-          case 8:
-            rotation = -90;
-            break;
-          default:
-            // Orientation 1 or unknown - check if landscape needs rotation
-            if (img.naturalWidth && img.naturalHeight && img.naturalWidth > img.naturalHeight) {
-              rotation = 90;
-            }
-        }
-        
-        setImageRotation(rotation);
-        setImageScale({ x: scaleX, y: scaleY });
-      } else {
-        // No EXIF data - check if landscape needs rotation
-        if (img.naturalWidth && img.naturalHeight && img.naturalWidth > img.naturalHeight) {
-          setImageRotation(90);
-        }
-      }
-    });
+    // Simple check: if image is landscape (wider than tall), rotate to portrait
+    if (img.naturalWidth && img.naturalHeight && img.naturalWidth > img.naturalHeight) {
+      setImageRotation(90);
+    } else {
+      setImageRotation(0);
+    }
   };
 
   return (
-    <div className="flex flex-col h-screen bg-background relative">
+    <div className="flex flex-col h-screen bg-white relative">
       {/* Header - Hidden when instructions are open */}
       {!showInstructions && (
         <div className="px-4 py-3 bg-card border-b border-border flex items-center gap-3 shrink-0">
@@ -139,7 +88,7 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
 
       {/* Image Area - Reduced size for better UI balance - Hidden when instructions are open */}
       {!showInstructions && (
-      <div className="flex-1 relative bg-gradient-to-b from-background to-muted/20 min-h-0 flex items-center justify-center py-6">
+      <div className="flex-1 relative bg-white min-h-0 flex items-center justify-center py-6">
         <div className="w-full max-w-sm mx-auto aspect-[3/4] relative overflow-hidden rounded-2xl shadow-2xl border-2 border-border/50">
           <img
             ref={imgRef}
