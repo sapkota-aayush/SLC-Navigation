@@ -238,7 +238,7 @@ const Index = () => {
               }}
               data-field="from"
               placeholder="Where are you?"
-              className="w-full pl-7 pr-2 py-2.5 bg-card rounded-md border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+              className="w-full pl-7 pr-2 py-3 bg-card rounded-md border border-border text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
               disabled={loading}
             />
           </div>
@@ -270,7 +270,7 @@ const Index = () => {
               }}
               data-field="to"
               placeholder="Where do you want to go?"
-              className="w-full pl-7 pr-2 py-2.5 bg-card rounded-md border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+              className="w-full pl-7 pr-2 py-3 bg-card rounded-md border border-border text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
               disabled={loading}
             />
           </div>
