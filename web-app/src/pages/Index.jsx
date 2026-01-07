@@ -100,22 +100,91 @@ const Index = () => {
         const pathNodes = response.data.path_nodes || [];
         const instructions = response.data.ai_instructions || "";
         
-        // Convert path_nodes to route steps format
+        // Parse AI instructions to extract direction information - only for clear turns
+        const parseDirectionsFromInstructions = (instructions, pathNodes) => {
+          const directions = [];
+          const instructionLines = instructions.toLowerCase().split(/[\.\n]/);
+          
+          pathNodes.forEach((node, index) => {
+            if (index === pathNodes.length - 1) {
+              directions.push("destination");
+              return;
+            }
+            
+            const nodeName = node.name.toLowerCase();
+            let foundDirection = null;
+            
+            // Search for this node name in instructions
+            for (const line of instructionLines) {
+              if (line.includes(nodeName) || (index < pathNodes.length - 1 && line.includes(pathNodes[index + 1]?.name?.toLowerCase()))) {
+                // Only detect clear turns - be conservative
+                // Look for explicit "turn right/left" phrases, not just "right" or "left"
+                if (line.includes("turn right") || (line.includes("right") && (line.includes("turn") || line.includes("corridor") || line.includes("hallway")))) {
+                  foundDirection = "right";
+                  break;
+                } else if (line.includes("turn left") || (line.includes("left") && (line.includes("turn") || line.includes("corridor") || line.includes("hallway")))) {
+                  foundDirection = "left";
+                  break;
+                } else if (line.includes("stairs") || line.includes("elevator") || line.includes("go up") || line.includes("go down")) {
+                  foundDirection = "stairs";
+                  break;
+                }
+                // Don't set "forward" from AI - let it default
+              }
+            }
+            
+            directions.push(foundDirection);
+          });
+          
+          return directions;
+        };
+
+        // Extract directions from AI instructions
+        const aiDirections = instructions ? parseDirectionsFromInstructions(instructions, pathNodes) : [];
+
+        // Convert path_nodes to route steps format with improved direction detection
         const steps = pathNodes.map((node, index) => {
-          // Determine direction based on node type and position
+          // Last node is always destination
+          if (index === pathNodes.length - 1) {
+            return {
+              id: node.id || `step-${index}`,
+              title: node.name || "Unknown Location",
+              imageUrl: node.photo || "",
+              direction: "destination",
+            };
+          }
+
+          // Determine direction - be conservative, only show turns when clear
           let direction = "forward";
+          
+          // Check for stairs/elevator first
           if (node.type === "stairs" || node.type === "elevator") {
             direction = "stairs";
-          } else if (index === pathNodes.length - 1) {
-            direction = "destination";
-          } else if (index === 0) {
+          }
+          // Only show left/right turns in corridors/hallways when explicitly mentioned
+          else if (node.type === "hallway" || node.type === "corridor") {
+            // In corridors/hallways, check for explicit turn instructions
+            if (aiDirections[index] === "right" || aiDirections[index] === "left") {
+              direction = aiDirections[index];
+            } else {
+              const desc = (node.description || "").toLowerCase();
+              // Only use description if it explicitly says "turn"
+              if (desc.includes("turn right")) {
+                direction = "right";
+              } else if (desc.includes("turn left")) {
+                direction = "left";
+              } else {
+                direction = "forward";
+              }
+            }
+          }
+          // For landmarks and other types, check AI instructions for clear turns
+          else if (aiDirections[index] === "right" || aiDirections[index] === "left") {
+            direction = aiDirections[index];
+          }
+          // Otherwise, default to forward
+          else {
             direction = "forward";
-          } else {
-            // Try to infer direction from description or connections
-            const desc = (node.description || "").toLowerCase();
-            if (desc.includes("right")) direction = "right";
-            else if (desc.includes("left")) direction = "left";
-            else direction = "forward";
           }
 
           // Construct image URL - handle both Supabase URLs and local paths
