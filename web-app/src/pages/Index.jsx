@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { MapPin, Navigation, ArrowLeft } from "lucide-react";
+import { MapPin, Navigation, ArrowLeft, X } from "lucide-react";
 import { SimplePathViewer } from "@/components/navigation/SimplePathViewer";
 import { cn } from "@/lib/utils";
 import axios from "axios";
@@ -167,6 +167,9 @@ const Index = () => {
                 setShowRoute(false);
                 setRouteSteps([]);
                 setError(null);
+                // Clear search fields for new search
+                setRouteInfo({ from: "", to: "", instructions: "" });
+                setSearchQuery("");
               }}
               className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
             >
@@ -238,9 +241,21 @@ const Index = () => {
               }}
               data-field="from"
               placeholder="Where are you?"
-              className="w-full pl-7 pr-2 py-3 bg-card rounded-md border border-border text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+              className="w-full pl-7 pr-10 py-3 bg-card rounded-md border border-border text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
               disabled={loading}
             />
+            {routeInfo.from && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setRouteInfo(prev => ({ ...prev, from: "" }));
+                }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-muted hover:bg-accent/20 flex items-center justify-center transition-colors"
+                aria-label="Clear"
+              >
+                <X className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+              </button>
+            )}
           </div>
           
           {/* Connector line */}
@@ -270,22 +285,49 @@ const Index = () => {
               }}
               data-field="to"
               placeholder="Where do you want to go?"
-              className="w-full pl-7 pr-2 py-3 bg-card rounded-md border border-border text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+              className="w-full pl-7 pr-10 py-3 bg-card rounded-md border border-border text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
               disabled={loading}
             />
+            {searchQuery && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSearchQuery("");
+                }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-muted hover:bg-accent/20 flex items-center justify-center transition-colors"
+                aria-label="Clear"
+              >
+                <X className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Go button */}
-        {routeInfo.from && searchQuery && (
-          <button
-            onClick={() => handleSearch(searchQuery)}
-            disabled={loading}
-            className="w-full py-2 bg-accent text-accent-foreground rounded-md font-semibold text-xs shadow-sm active:scale-95 transition-all mb-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? "Finding route..." : "Get Directions"}
-          </button>
-        )}
+        {/* Action buttons */}
+        <div className="flex gap-2 mb-2.5">
+          {(routeInfo.from || searchQuery) && (
+            <button
+              onClick={() => {
+                setRouteInfo({ from: "", to: "", instructions: "" });
+                setSearchQuery("");
+                setError(null);
+              }}
+              className="px-4 py-2 bg-secondary text-secondary-foreground rounded-md font-semibold text-xs shadow-sm active:scale-95 transition-all hover:bg-secondary/80 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              <X className="w-4 h-4" />
+              Clear
+            </button>
+          )}
+          {routeInfo.from && searchQuery && (
+            <button
+              onClick={() => handleSearch(searchQuery)}
+              disabled={loading}
+              className="flex-1 py-2 bg-accent text-accent-foreground rounded-md font-semibold text-xs shadow-sm active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Finding route..." : "Get Directions"}
+            </button>
+          )}
+        </div>
 
         {/* Quick destinations */}
         {destinations.length > 0 && (
