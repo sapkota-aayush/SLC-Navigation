@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, MapPin, ArrowUp, CornerUpRight, CornerUpLeft, TrendingUp, Navigation, MessageSquare, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -21,10 +21,25 @@ const directionLabels = {
 export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [imageRotation, setImageRotation] = useState(0);
+  const imgRef = useRef(null);
   
   const step = steps[currentStep];
   const DirectionIcon = directionIcons[step.direction];
   const progress = ((currentStep + 1) / steps.length) * 100;
+
+  // Handle image orientation on load
+  const handleImageLoad = (e) => {
+    const img = e.target;
+    if (img.naturalWidth && img.naturalHeight) {
+      // If image is landscape (wider than tall), rotate it 90 degrees
+      if (img.naturalWidth > img.naturalHeight) {
+        setImageRotation(90);
+      } else {
+        setImageRotation(0);
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen bg-background relative">
@@ -68,11 +83,18 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
       {/* Large Image Area - Takes most of the screen - Hidden when instructions are open */}
       {!showInstructions && (
       <div className="flex-1 relative bg-black min-h-0 flex items-center justify-center">
-        <div className="w-full max-w-md mx-auto aspect-[3/4] relative">
+        <div className="w-full max-w-md mx-auto aspect-[3/4] relative overflow-hidden">
           <img
+            ref={imgRef}
             src={step.imageUrl}
             alt={step.title}
             className="w-full h-full object-contain"
+            style={{
+              imageOrientation: 'from-image',
+              transform: imageRotation ? `rotate(${imageRotation}deg)` : 'none',
+              transition: 'transform 0.3s ease'
+            }}
+            onLoad={handleImageLoad}
           onError={(e) => {
             console.error('Image failed to load:', step.imageUrl);
             // Try direct backend URL if proxy fails
