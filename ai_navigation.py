@@ -31,7 +31,8 @@ class AINavigationSystem(NavigationSystem):
                 from dotenv import load_dotenv
                 load_dotenv()
                 api_key = os.getenv('OPENAI_API_KEY')
-            except ImportError:
+            except (ImportError, PermissionError, Exception):
+                # If .env file can't be read (permission issues, etc), continue without it
                 pass
         
         if api_key and OPENAI_AVAILABLE:
@@ -476,7 +477,7 @@ Respond with ONLY the exact location name from the list above, or "NOT_FOUND" if
         start_floor = start_node.get('floor', 1)
         dest_floor = dest_node.get('floor', 1)
         
-        instructions_prompt = f"""You are a navigation assistant. Provide VERY SHORT, simple paragraph directions for this path:
+        instructions_prompt = f"""You are a navigation assistant. Provide descriptive directions that tell users what they will SEE, not just generic "go straight" commands.
 
 Path: {start_node['name']} (Floor {start_floor}) to {dest_node['name']} (Floor {dest_floor})
 
@@ -484,23 +485,28 @@ Step descriptions with floor information:
 {path_description}
 
 CRITICAL RULES:
+- NEVER use technical node names like "Hallway 1", "Hallway 3", "Hallway 4" - users don't know what these mean
+- DESCRIBE WHAT THEY'LL SEE: "You'll see rooms on your right side", "Look for the green sign above the doors", "You'll see a long hallway with doors on both sides"
+- Instead of "go straight", say: "Keep walking forward", "Continue down the hallway", "Walk straight ahead through this area"
+- Instead of generic directions, describe landmarks: "Pass the BookStore on your right", "Walk past the Cafeteria", "You'll see the Library ahead"
+- For hallways with rooms: "You'll see rooms numbered [X-Y] on your right/left side, keep moving forward"
+- For entrances: "You'll see this entrance/hallway ahead, walk through it"
 - Pay attention to floor numbers! If going from floor 0 to floor 1, say "go upstairs" or "go up to floor 1"
 - If going from floor 1 to floor 0, say "go downstairs" or "go down to basement"
 - If locations are on the same floor, don't mention going up or down
-- If a location description says "continue straight" or "pass through", it means NO TURNING - just keep going straight
-- Only mention "turn left" or "turn right" when the description explicitly says to turn
-- If locations are "in the same hallway", don't say "turn" - just say "continue straight" or "pass"
 - Keep it to 2-3 sentences maximum
-- Be clear and direct
-- Don't mention intermediate locations unless they are actual turning points
+- Be clear and descriptive - tell them what visual cues to look for
 - Write as a simple paragraph, not a list
 
 Examples:
-- From basement (floor 0) to floor 1: "Go upstairs to floor 1, then..."
-- From floor 1 to basement (floor 0): "Go downstairs to the basement, then..."
-- Same floor: "Go straight through main hall, pass BookStore..."
+- BAD: "Go straight"
+- GOOD: "Keep walking forward through the hallway. You'll see rooms on your right side, continue moving ahead"
+- BAD: "Turn left after Hallway 3"
+- GOOD: "At the next opening, turn left. You'll see a hallway with doors on both sides"
+- GOOD: "Walk past the Cafeteria and continue straight. You'll see rooms numbered 11010-11050 on your right side - keep moving forward"
+- GOOD: "You'll see this entrance ahead with glass doors and a green sign above. Walk through it and continue down the hallway"
 
-Provide the directions now:"""
+Provide the directions now (describe what they'll see, use natural language, no technical names):"""
 
         try:
             response = self.client.chat.completions.create(
