@@ -61,10 +61,25 @@
       "floor": 1,
       "connects_to": [
         "main_entrance",
+        "green_wing_entrance",
+        "cafeteria"
+      ],
+      "rooms": [],
+      "description": "BookStore area in the main hallway. Walk straight through the main hall from Main Entrance, you'll see the BookStore on your way."
+    },
+    {
+      "id": "green_wing_entrance",
+      "name": "Green Wing Entrance",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/T-Wing-Entrance.jpg",
+      "type": "pathway",
+      "floor": 1,
+      "connects_to": [
+        "bookstore",
         "career_services"
       ],
       "rooms": [],
-      "description": "Go straight through main hall from Main Entrance"
+      "aliases": ["Green Wing Entrance", "Green Wing", "T-Wing Entrance"],
+      "description": "Green Wing entrance between BookStore and Career Services"
     },
     {
       "id": "it_services",
@@ -85,12 +100,12 @@
       "type": "landmark",
       "floor": 1,
       "connects_to": [
-        "bookstore",
+        "green_wing_entrance",
         "cafeteria",
         "hallway_1"
       ],
       "rooms": [],
-      "description": "Continue straight past BookStore, Career Services is a room in the same hallway"
+      "description": "Continue straight past Green Wing Entrance and BookStore, Career Services is a room in the same hallway"
     },
     {
       "id": "cafeteria",
@@ -99,12 +114,56 @@
       "type": "landmark",
       "floor": 1,
       "connects_to": [
+        "bookstore",
         "career_services",
         "hallway_1",
-        "hallway_4"
+        "hallway_4",
+        "tan_wing_entrance",
+        "stairs_to_cafeteria_basement"
       ],
       "rooms": [],
-      "description": "Continue straight past Career Services to reach Cafeteria, all in the same hallway"
+      "description": "Cafeteria area. Continue walking straight past the BookStore, you'll see the Cafeteria ahead. Keep moving forward through this area."
+    },
+    {
+      "id": "tan_wing_entrance",
+      "name": "Tan Wing Entrance",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Tan-Wing-Entrance.jpg",
+      "type": "pathway",
+      "floor": 1,
+      "connects_to": [
+        "cafeteria",
+        "tan_wing"
+      ],
+      "rooms": [],
+      "aliases": ["Tan Wing Entrance", "Tan Wing", "T-Wing Entrance", "T Wing Entrance"],
+      "description": "Tan Wing Entrance right after passing the Cafeteria (Papa Jones). Continue straight past the Cafeteria and you'll see the Tan Wing Entrance ahead."
+    },
+    {
+      "id": "tan_wing",
+      "name": "Tan Wing",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/tan-wing.jpg",
+      "type": "pathway",
+      "floor": 1,
+      "connects_to": [
+        "tan_wing_entrance",
+        "hallway_after_cafeteria"
+      ],
+      "rooms": [],
+      "aliases": ["Tan Wing", "T-Wing", "T Wing", "Tan Wing First Floor"],
+      "description": "Tan Wing area. After passing through Tan Wing Entrance, continue straight through the Tan Wing to reach the hallway beyond."
+    },
+    {
+      "id": "hallway_after_cafeteria",
+      "name": "Rooms 11010-11050",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Hallway-After-Cafeteria.jpg",
+      "type": "pathway",
+      "floor": 1,
+      "connects_to": [
+        "tan_wing"
+      ],
+      "rooms": ["11010", "11020", "11030", "11040", "11050", "12010"],
+      "aliases": ["Rooms 11010-11050", "Hallway After Cafeteria"],
+      "description": "Long hallway with glass doors entrance, green sign above showing room numbers. Rooms 11010-11050 and 12010 are in this hallway. Personal Support Worker orientation sessions are held in room 12010. Keep walking forward and look for your room number on the doors."
     },
     {
       "id": "hallway_1",
@@ -138,7 +197,7 @@
     },
     {
       "id": "events_banquet",
-      "name": "Events and Banquet",
+      "name": "Events and Banquet Services",
       "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/EventsAndBanquet.jpg",
       "type": "landmark",
       "floor": 1,
@@ -146,7 +205,11 @@
         "upper_concourse"
       ],
       "rooms": [],
-      "description": "Located in Upper Concourse area"
+      "aliases": [
+        "Events and Banquet",
+        "Events and Banquet Services"
+      ],
+      "description": "Events and Banquet Services located in Upper Concourse area. Orientation sessions for Electrical Engineering Technician, Energy System Engineering Technician, Wind Turbine Technician, and Instrumentation and Control Engineering are held here. Look for the orientation signs on the door."
     },
     {
       "id": "surge",
@@ -272,7 +335,8 @@
       "floor": 2,
       "connects_to": [
         "stairs_to_floor2_2",
-        "hallway_1_floor2"
+        "hallway_1_floor2",
+        "stairs_to_floor3"
       ],
       "rooms": [],
       "description": "Right up front from stairs, first destination on Floor 2"
@@ -280,7 +344,7 @@
     {
       "id": "hallway_1_floor2",
       "name": "Hallway 1",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/halway1.jpg",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/hallway1_orientation.jpg",
       "type": "pathway",
       "floor": 2,
       "connects_to": [
@@ -289,8 +353,9 @@
         "innovation_hub",
         "hallway_2_floor2"
       ],
-      "rooms": [],
-      "description": "Turn left from Student Association, Test Centers on right, Innovation Hub on left further down"
+      "rooms": ["22180"],
+      "aliases": ["Hallway 1", "Hallway 1 Floor 2"],
+      "description": "Hallway 1 on Floor 2. Turn left from Student Association, Test Centers on right, Innovation Hub on left further down. Room 22180 is in this hallway where Cybersecurity orientation sessions are held."
     },
     {
       "id": "test_center",
@@ -314,7 +379,8 @@
         "hallway_1_floor2"
       ],
       "rooms": [],
-      "description": "First left from first hallway, walk further down"
+      "aliases": ["Innovation Hub"],
+      "description": "Innovation Hub located on Floor 2. Orientation sessions for Digital Marketing and Communications are held here. First left from first hallway, walk further down."
     },
     {
       "id": "hallway_2_floor2",
@@ -370,10 +436,11 @@
     {
       "id": "stairs_to_floor3",
       "name": "Stairs to Floor 3",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/stairs_to_floor3.jpg",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/stairs_to_floor3.png",
       "type": "stairs",
       "floor": 2,
       "connects_to": [
+        "student_association_floor2",
         "elevator_floor2",
         "hallway_1_floor3"
       ],
@@ -382,8 +449,8 @@
     },
     {
       "id": "hallway_1_floor3",
-      "name": "Hallway 1 - Main Hallway",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_1_rooms33360-33325_33370-33405.jpg",
+      "name": "Hallway 1",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway1.png",
       "type": "pathway",
       "floor": 3,
       "connects_to": [
@@ -391,18 +458,14 @@
         "hallway_2_floor3"
       ],
       "rooms": [
-        "33360",
-        "33350",
-        "33325",
-        "33370",
-        "33405"
+        "33410"
       ],
-      "description": "Main hallway after stairs, turn left. Left side: 33360, 33350, 33325. Right side: 33370 (Design Studio), 33405"
+      "description": "Left side of stairs, has room 33410"
     },
     {
       "id": "hallway_2_floor3",
-      "name": "Hallway 2 - Small Right Hallway",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_2_rooms33340-33400_33300-33140.jpg",
+      "name": "Hallway 2",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_2_rooms33340-33400_33300-33140.png",
       "type": "pathway",
       "floor": 3,
       "connects_to": [
@@ -411,18 +474,19 @@
         "hallway_3_floor3"
       ],
       "rooms": [
-        "33340",
-        "33400",
-        "33300",
-        "33150",
+        "33080",
+        "33100",
+        "33120",
+        "33090",
+        "33110",
         "33140"
       ],
-      "description": "Small right hallway. Left side: 33340, 33400. Right side: 33300, 33150, 33140"
+      "description": "Long hallway with left and right turn. Right side: 33080, 33100, 33120. Left side: 33090, 33110, 33140"
     },
     {
       "id": "exit_hallway2_floor3",
       "name": "Exit Hallway 2",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/exit_hallway2.jpg",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/exit_hallway2.png",
       "type": "pathway",
       "floor": 3,
       "connects_to": [
@@ -433,8 +497,8 @@
     },
     {
       "id": "hallway_3_floor3",
-      "name": "Hallway 3 - Bottom Horizontal",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_3_rooms33090-33410_33080-33000.jpg",
+      "name": "Hallway 3",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_3_rooms33090-33410_33080-33000.png",
       "type": "pathway",
       "floor": 3,
       "connects_to": [
@@ -443,17 +507,27 @@
         "hallway_4_floor3"
       ],
       "rooms": [
-        "33090",
-        "33410",
-        "33080",
-        "33000"
+        "33160",
+        "33170",
+        "33180",
+        "33190",
+        "33200",
+        "33210",
+        "33220",
+        "33230",
+        "33240",
+        "33250",
+        "33260",
+        "33270",
+        "33150",
+        "33135"
       ],
-      "description": "Bottom horizontal hallway. Left side: 33090, 33410. Right side: 33080, 33000"
+      "description": "Turn left from Hallway 2. Right side: 33160, 33170, 33180, 33190, 33200, 33210, 33220, 33230, 33240, 33250, 33260, 33270. Left side: 33150, 33135"
     },
     {
       "id": "exit_hallway3_floor3",
       "name": "Exit Hallway 3",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/exit_hallway3.jpg",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/exit_hallway3.png",
       "type": "pathway",
       "floor": 3,
       "connects_to": [
@@ -464,27 +538,32 @@
     },
     {
       "id": "hallway_4_floor3",
-      "name": "Hallway 4 - Graphics Lab Area",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_4_rooms33050-33376_33370-33374.jpg",
+      "name": "Hallway 4",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_4_rooms33050-33376_33370-33374.png",
       "type": "pathway",
       "floor": 3,
       "connects_to": [
+        "right_of_stairs_floor3",
         "hallway_3_floor3",
         "hallway_5_floor3"
       ],
       "rooms": [
-        "33050",
-        "33376",
-        "33370",
-        "33373",
-        "33374"
+        "33290",
+        "33295",
+        "33320",
+        "33340",
+        "33360",
+        "33361",
+        "33300",
+        "33335",
+        "33350"
       ],
-      "description": "Left vertical hallway. Left side: 33050 (Graphics Lab), 33376. Right side: 33370 (Design Studio), 33373, 33374"
+      "description": "Turn left after Hallway 3. Right side: 33290, 33295, 33320, 33340, 33360, 33361. Left side: 33300, 33335, 33350. Also accessible from right side of stairs (shorter path)"
     },
     {
       "id": "hallway_5_floor3",
-      "name": "Hallway 5 - To Elevators",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_5_to_elevators.jpg",
+      "name": "Hallway 5",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_5_to_elevators.png",
       "type": "pathway",
       "floor": 3,
       "connects_to": [
@@ -492,16 +571,15 @@
         "elevator_floor3"
       ],
       "rooms": [
-        "33360",
-        "33350",
-        "33325"
+        "33370",
+        "33371"
       ],
-      "description": "Top horizontal hallway to elevators. Left side: 33360, 33350, 33325. Right side: Elevators, Washrooms"
+      "description": "Has rooms 33370 and 33371, stairs and elevator"
     },
     {
       "id": "elevator_floor3",
       "name": "Elevator Floor 3",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_5_to_elevators.jpg",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/hallway_5_to_elevators.png",
       "type": "stairs",
       "floor": 3,
       "connects_to": [
@@ -513,14 +591,15 @@
     {
       "id": "right_of_stairs_floor3",
       "name": "Right of Stairs",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/right_of_stairs.jpg",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_3/right_of_stairs.png",
       "type": "pathway",
       "floor": 3,
       "connects_to": [
-        "stairs_to_floor3"
+        "stairs_to_floor3",
+        "hallway_4_floor3"
       ],
       "rooms": [],
-      "description": "Right side of stairs on Floor 3"
+      "description": "Right side of stairs on Floor 3, shorter path to rooms 33290, 33295, 33320, 33340, 33360, 33361, 33370, 33371"
     },
     {
       "id": "st_larrys_pub",
@@ -529,10 +608,136 @@
       "type": "landmark",
       "floor": 0,
       "connects_to": [
-        "stairs_basement_2"
+        "stairs_basement_2",
+        "nursing_basement_hallway"
       ],
       "rooms": [],
       "description": "Basement pub and social area"
+    },
+    {
+      "id": "stairs_to_cafeteria_basement",
+      "name": "Stairs to Basement (Cafeteria)",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6318.jpg",
+      "type": "stairs",
+      "floor": 1,
+      "connects_to": [
+        "cafeteria",
+        "basement_big_hall"
+      ],
+      "rooms": [],
+      "description": "Stairs going down after passing the hallway of cafeteria. This takes you to the basement."
+    },
+    {
+      "id": "basement_big_hall",
+      "name": "Basement Main Hall",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6319.jpg",
+      "type": "pathway",
+      "floor": 0,
+      "connects_to": [
+        "stairs_to_cafeteria_basement",
+        "nursing_basement_hallway",
+        "campus_health_center_route"
+      ],
+      "rooms": ["01000", "01010", "01020", "01030", "01040", "01050"],
+      "aliases": [
+        "Basement Main Hall",
+        "Big Hall",
+        "Main Basement Hall",
+        "Business",
+        "Medical Lab Assistant",
+        "Medical Lab Tech",
+        "Mechanical Technical",
+        "Hairstyling",
+        "Hairstyling Orientation",
+        "Room 01000",
+        "Room 01010",
+        "Room 01040",
+        "Room 02030"
+      ],
+      "description": "Big hall at the bottom of the stairs with important rooms 01000, 01010, 01020, 01030, 01040, 01050. Orientation sessions for Business (01000), Medical Lab Assistant/Tech (01010), Mechanical Technical (01040), and Hairstyling (02030) are held here. Going straight leads to Nursing, turning around leads to Trades Blue Wing."
+    },
+    {
+      "id": "campus_health_center_route",
+      "name": "Campus Health Center Route",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6333.jpg",
+      "type": "pathway",
+      "floor": 0,
+      "connects_to": [
+        "basement_big_hall",
+        "trades_hallway_end"
+      ],
+      "rooms": [],
+      "aliases": ["Campus Health Center Route", "Campus Health Center", "Health Center Route"],
+      "description": "Continue from the big hall. You'll see Campus Health Center on your left hand side. Keep going till the end of the hallway."
+    },
+    {
+      "id": "trades_hallway_end",
+      "name": "Trades Hallway End",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6332.jpg",
+      "type": "pathway",
+      "floor": 0,
+      "connects_to": [
+        "campus_health_center_route",
+        "trades_blue_wing",
+        "culinary"
+      ],
+      "rooms": [],
+      "aliases": ["Trades Hallway End", "End of Hallway", "Trades Intersection"],
+      "description": "At the end of the hallway after Campus Health Center, turn left. From here: turn right for Trades Blue Wing, or turn left for Culinary."
+    },
+    {
+      "id": "trades_blue_wing",
+      "name": "Trades Blue Wing",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6327.jpg",
+      "type": "pathway",
+      "floor": 0,
+      "connects_to": [
+        "trades_hallway_end",
+        "electrical_hair_styling"
+      ],
+      "rooms": [],
+      "aliases": ["Trades Blue Wing", "Trades Wing", "Blue Wing", "Official Trades Wing"],
+      "description": "Official Trades Blue Wing. At the end of the hallway after Campus Health Center, turn left, then turn right to reach this area. From here, turn right again to reach Electrical/Hair Styling/Estheticians."
+    },
+    {
+      "id": "culinary",
+      "name": "Culinary",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6328.jpg",
+      "type": "pathway",
+      "floor": 0,
+      "connects_to": [
+        "trades_hallway_end"
+      ],
+      "rooms": [],
+      "aliases": ["Culinary", "Culinary Wing", "Culinary Arts"],
+      "description": "Culinary area. At the end of the hallway after Campus Health Center, turn left, then turn left again to reach Culinary."
+    },
+    {
+      "id": "electrical_hair_styling",
+      "name": "Electrical / Hair Styling / Estheticians",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6330.jpg",
+      "type": "pathway",
+      "floor": 0,
+      "connects_to": [
+        "trades_blue_wing"
+      ],
+      "rooms": [],
+      "aliases": ["Electrical", "Hair Styling", "Estheticians", "Electrical Wing", "Hair Styling Section", "Esthetician", "Hair Styling"],
+      "description": "Electrical, Hair Styling, or Estheticians section. After reaching Trades Blue Wing (image 6327), turn right to reach this final area (image 6330)."
+    },
+    {
+      "id": "nursing_basement_hallway",
+      "name": "Nursing Basement",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/nursing_basement/IMG_6320.jpg",
+      "type": "pathway",
+      "floor": 0,
+      "connects_to": [
+        "basement_big_hall",
+        "st_larrys_pub"
+      ],
+      "rooms": [],
+      "aliases": ["Nursing Basement", "Nursing Wing", "Nursing"],
+      "description": "Nursing Basement area. Go straight from the big hall to reach Nursing."
     }
   ],
   "start_node": "main_entrance"
