@@ -9,7 +9,8 @@ import os
 from ai_navigation import AINavigationSystem
 
 app = Flask(__name__)
-CORS(app)  # Allow React frontend to access API
+# Allow all origins for CORS (including custom domain slcnavigation.aayussh.com)
+CORS(app, origins="*", allow_headers=["Content-Type"], methods=["GET", "POST", "OPTIONS"])
 
 # Disable caching for API responses
 @app.after_request
@@ -111,7 +112,9 @@ def health():
     })
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5001))
+    port = int(os.environ.get('PORT', 8000))
     app.run(debug=False, host='0.0.0.0', port=port)
+
+
 
 
