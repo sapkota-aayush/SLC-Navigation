@@ -100,47 +100,8 @@ const Index = () => {
         const pathNodes = response.data.path_nodes || [];
         const instructions = response.data.ai_instructions || "";
         
-        // Parse AI instructions to extract direction information - only for clear turns
-        const parseDirectionsFromInstructions = (instructions, pathNodes) => {
-          const directions = [];
-          const instructionLines = instructions.toLowerCase().split(/[\.\n]/);
-          
-          pathNodes.forEach((node, index) => {
-            if (index === pathNodes.length - 1) {
-              directions.push("destination");
-              return;
-            }
-            
-            const nodeName = node.name.toLowerCase();
-            let foundDirection = null;
-            
-            // Search for this node name in instructions
-            for (const line of instructionLines) {
-              if (line.includes(nodeName) || (index < pathNodes.length - 1 && line.includes(pathNodes[index + 1]?.name?.toLowerCase()))) {
-                // Only detect clear turns - be conservative
-                // Look for explicit "turn right/left" phrases, not just "right" or "left"
-                if (line.includes("turn right") || (line.includes("right") && (line.includes("turn") || line.includes("corridor") || line.includes("hallway")))) {
-                  foundDirection = "right";
-                  break;
-                } else if (line.includes("turn left") || (line.includes("left") && (line.includes("turn") || line.includes("corridor") || line.includes("hallway")))) {
-                  foundDirection = "left";
-                  break;
-                } else if (line.includes("stairs") || line.includes("elevator") || line.includes("go up") || line.includes("go down")) {
-                  foundDirection = "stairs";
-                  break;
-                }
-                // Don't set "forward" from AI - let it default
-              }
-            }
-            
-            directions.push(foundDirection);
-          });
-          
-          return directions;
-        };
-
-        // Extract directions from AI instructions
-        const aiDirections = instructions ? parseDirectionsFromInstructions(instructions, pathNodes) : [];
+        // Removed direction parsing - we don't show turn indicators anymore to avoid confusion
+        // Users follow the images instead of turn indicators
 
         // Convert path_nodes to route steps format with improved direction detection
         const steps = pathNodes.map((node, index) => {
@@ -154,38 +115,14 @@ const Index = () => {
             };
           }
 
-          // Determine direction - be conservative, only show turns when clear
-          let direction = "forward";
+          // Simplified direction - no turn indicators to avoid confusion
+          // Only show stairs/elevator and destination indicators
+          let direction = "forward"; // Hidden for regular steps - no indicator shown
           
-          // Check for stairs/elevator first
           if (node.type === "stairs" || node.type === "elevator") {
-            direction = "stairs";
+            direction = "stairs"; // Show "Take stairs" indicator
           }
-          // Only show left/right turns in corridors/hallways when explicitly mentioned
-          else if (node.type === "hallway" || node.type === "corridor") {
-            // In corridors/hallways, check for explicit turn instructions
-            if (aiDirections[index] === "right" || aiDirections[index] === "left") {
-              direction = aiDirections[index];
-            } else {
-              const desc = (node.description || "").toLowerCase();
-              // Only use description if it explicitly says "turn"
-              if (desc.includes("turn right")) {
-                direction = "right";
-              } else if (desc.includes("turn left")) {
-                direction = "left";
-              } else {
-                direction = "forward";
-              }
-            }
-          }
-          // For landmarks and other types, check AI instructions for clear turns
-          else if (aiDirections[index] === "right" || aiDirections[index] === "left") {
-            direction = aiDirections[index];
-          }
-          // Otherwise, default to forward
-          else {
-            direction = "forward";
-          }
+          // All other steps use "forward" but indicator is hidden (only shows for destination/stairs)
 
           // Construct image URL - handle both Supabase URLs and local paths
           let imageUrl = node.photo || "";
