@@ -88,7 +88,8 @@
       "type": "landmark",
       "floor": 1,
       "connects_to": [
-        "main_entrance"
+        "main_entrance",
+        "stairs_to_nursing_basement"
       ],
       "rooms": [],
       "description": "Beside BookStore"
@@ -100,7 +101,7 @@
       "type": "landmark",
       "floor": 1,
       "connects_to": [
-        "green_wing_entrance",
+        "bookstore",
         "cafeteria",
         "hallway_1"
       ],
@@ -114,11 +115,10 @@
       "type": "landmark",
       "floor": 1,
       "connects_to": [
-        "bookstore",
         "career_services",
         "hallway_1",
         "hallway_4",
-        "tan_wing_entrance",
+        "hallway_after_cafeteria",
         "stairs_to_cafeteria_basement"
       ],
       "rooms": [],
@@ -145,7 +145,6 @@
       "type": "pathway",
       "floor": 1,
       "connects_to": [
-        "tan_wing_entrance",
         "hallway_after_cafeteria"
       ],
       "rooms": [],
@@ -154,11 +153,12 @@
     },
     {
       "id": "hallway_after_cafeteria",
-      "name": "Rooms 11010-11050",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/Hallway-After-Cafeteria.jpg",
+      "name": "Hallway After Cafeteria",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/hallway-after-cafeteria.jpg",
       "type": "pathway",
       "floor": 1,
       "connects_to": [
+        "cafeteria",
         "tan_wing"
       ],
       "rooms": ["11010", "11020", "11030", "11040", "11050", "12010"],
@@ -344,7 +344,7 @@
     {
       "id": "hallway_1_floor2",
       "name": "Hallway 1",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/hallway1_orientation.jpg",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_2/halway1.jpg",
       "type": "pathway",
       "floor": 2,
       "connects_to": [
@@ -615,6 +615,19 @@
       "description": "Basement pub and social area"
     },
     {
+      "id": "stairs_to_nursing_basement",
+      "name": "Stairs to Nursing Basement",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/floor_1/IMG_6309.jpg",
+      "type": "stairs",
+      "floor": 1,
+      "connects_to": [
+        "it_services",
+        "nursing_basement_hallway"
+      ],
+      "rooms": [],
+      "description": "Stairs to Nursing Basement and Mechanical Space. From IT Services, you'll see the door to stairs. Take the stairs down to reach the Nursing and Mechanical areas."
+    },
+    {
       "id": "stairs_to_cafeteria_basement",
       "name": "Stairs to Basement (Cafeteria)",
       "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6318.jpg",
@@ -622,10 +635,23 @@
       "floor": 1,
       "connects_to": [
         "cafeteria",
-        "basement_big_hall"
+        "basement_connecting_hallway"
       ],
       "rooms": [],
       "description": "Stairs going down after passing the hallway of cafeteria. This takes you to the basement."
+    },
+    {
+      "id": "basement_connecting_hallway",
+      "name": "Basement Connecting Hallway",
+      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6321.jpg",
+      "type": "pathway",
+      "floor": 0,
+      "connects_to": [
+        "stairs_to_cafeteria_basement",
+        "basement_big_hall"
+      ],
+      "rooms": [],
+      "description": "Hallway at the bottom of the stairs connecting to the main basement hall."
     },
     {
       "id": "basement_big_hall",
@@ -634,8 +660,7 @@
       "type": "pathway",
       "floor": 0,
       "connects_to": [
-        "stairs_to_cafeteria_basement",
-        "nursing_basement_hallway",
+        "basement_connecting_hallway",
         "campus_health_center_route"
       ],
       "rooms": ["01000", "01010", "01020", "01030", "01040", "01050"],
@@ -732,12 +757,12 @@
       "type": "pathway",
       "floor": 0,
       "connects_to": [
-        "basement_big_hall",
+        "stairs_to_nursing_basement",
         "st_larrys_pub"
       ],
       "rooms": [],
-      "aliases": ["Nursing Basement", "Nursing Wing", "Nursing"],
-      "description": "Nursing Basement area. Go straight from the big hall to reach Nursing."
+      "aliases": ["Nursing Basement", "Nursing Wing", "Nursing", "Mechanical Space"],
+      "description": "Nursing Basement area. This area includes both Nursing and Mechanical spaces. Reached via the stairs near IT Services from the Main Entrance."
     }
   ],
   "start_node": "main_entrance"

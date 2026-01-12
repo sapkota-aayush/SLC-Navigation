@@ -113,6 +113,9 @@ def health():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
+    # Disable Flask's automatic dotenv loading to avoid permission errors
+    import flask.cli
+    flask.cli.load_dotenv = lambda *args, **kwargs: None
     app.run(debug=False, host='0.0.0.0', port=port)
 
 

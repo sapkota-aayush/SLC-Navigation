@@ -62,6 +62,12 @@ class NavigationSystem:
                 return node['id']
             if node['id'].lower() == name.lower().strip():
                 return node['id']
+            
+            # Check aliases if they exist
+            if 'aliases' in node:
+                for alias in node['aliases']:
+                    if alias.lower().strip() == name.lower().strip():
+                        return node['id']
         
         # Then try normalized exact match
         for node in self.nodes:
@@ -69,6 +75,12 @@ class NavigationSystem:
             node_id_normalized = normalize(node['id'])
             if node_name_normalized == search_name or node_id_normalized == search_name:
                 return node['id']
+            
+            # Check aliases with normalization
+            if 'aliases' in node:
+                for alias in node['aliases']:
+                    if normalize(alias) == search_name:
+                        return node['id']
         
         # Try partial match (normalized) - search in node name
         for node in self.nodes:
@@ -77,6 +89,13 @@ class NavigationSystem:
             if (search_name in node_name_normalized or 
                 search_name in node_id_normalized):
                 return node['id']
+            
+            # Check aliases for partial match
+            if 'aliases' in node:
+                for alias in node['aliases']:
+                    alias_normalized = normalize(alias)
+                    if search_name in alias_normalized or alias_normalized in search_name:
+                        return node['id']
         
         # Try reverse partial match - node name in search (for abbreviations)
         if len(search_name) >= 4:  # Only for meaningful searches
@@ -86,6 +105,13 @@ class NavigationSystem:
                 if (node_name_normalized in search_name or 
                     node_id_normalized in search_name):
                     return node['id']
+                
+                # Check aliases for reverse partial match
+                if 'aliases' in node:
+                    for alias in node['aliases']:
+                        alias_normalized = normalize(alias)
+                        if alias_normalized in search_name or search_name in alias_normalized:
+                            return node['id']
         
         return None
     
@@ -240,12 +266,13 @@ class NavigationSystem:
                     'location': node['name']
                 })
             
-            # Add landmarks and other location types
-            if node.get('type') in ['landmark', 'hallway', 'stairs', 'elevator']:
+            # Add landmarks and other location types (including pathways for important locations)
+            if node.get('type') in ['landmark', 'hallway', 'stairs', 'elevator', 'pathway']:
                 destinations.append({
                     'type': 'location',
                     'value': node['name'],
-                    'location': node['name']
+                    'location': node['name'],
+                    'floor': node.get('floor', 1)
                 })
         
         return destinations

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { MapPin, Navigation, ArrowLeft, X } from "lucide-react";
+import { MapPin, ArrowLeft, X } from "lucide-react";
 import { SimplePathViewer } from "@/components/navigation/SimplePathViewer";
 import { cn } from "@/lib/utils";
 import axios from "axios";
@@ -60,13 +60,9 @@ const Index = () => {
           destination = searchResponse.data.name;
           // Update the search query to show the matched location
           setSearchQuery(destination);
-        } else {
-          // If AI search fails, try direct navigation with original query
-          console.log('AI search returned no match, trying direct lookup');
         }
       } catch (searchErr) {
         // If AI search fails, try with original query
-        console.log('AI search error, using original query:', searchErr);
       }
       
       // Interpret start location with AI if it's not "Main Entrance"
@@ -83,7 +79,6 @@ const Index = () => {
           }
         } catch (startErr) {
           // If AI search fails, use original
-          console.log('Start location AI search failed, using original:', startErr);
         }
       } else if (!startLocation || startLocation.trim() === "") {
         // Default to Main Entrance if empty
@@ -181,9 +176,7 @@ const Index = () => {
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <div className="nav-gradient p-1.5 rounded-md">
-              <Navigation className="w-4 h-4 text-accent-foreground" />
-            </div>
+            <img src="/slcNavLogo.png" alt="SLC Navigator Logo" className="w-10 h-10 object-contain" />
             <span className="font-display font-semibold text-sm text-foreground">SLC Navigator</span>
           </div>
         </header>
@@ -202,14 +195,12 @@ const Index = () => {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <header className="bg-card border-b border-border">
-        <div className="px-2 py-1.5">
-          <div className="flex items-center gap-1.5">
-            <div className="bg-accent p-1.5 rounded-md shadow-sm">
-              <Navigation className="w-3.5 h-3.5 text-accent-foreground" />
-            </div>
+        <div className="px-3 py-2">
+          <div className="flex items-center gap-2.5">
+            <img src="/slcNavLogo.png" alt="SLC Navigator Logo" className="w-10 h-10 object-contain" />
             <div>
-              <h1 className="font-display text-xs font-bold text-foreground">SLC Navigator</h1>
-              <p className="text-[8px] text-muted-foreground">St. Lawrence College</p>
+              <h1 className="font-display text-sm font-bold text-foreground leading-tight">SLC Navigator</h1>
+              <p className="text-[10px] text-muted-foreground leading-tight">St. Lawrence College</p>
             </div>
           </div>
         </div>
