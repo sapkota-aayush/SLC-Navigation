@@ -118,8 +118,7 @@
         "career_services",
         "hallway_1",
         "hallway_4",
-        "hallway_after_cafeteria",
-        "stairs_to_cafeteria_basement"
+        "hallway_after_cafeteria"
       ],
       "rooms": [],
       "description": "Cafeteria area. Continue walking straight past the BookStore, you'll see the Cafeteria ahead. Keep moving forward through this area."
@@ -159,7 +158,8 @@
       "floor": 1,
       "connects_to": [
         "cafeteria",
-        "tan_wing"
+        "tan_wing",
+        "stairs_to_cafeteria_basement"
       ],
       "rooms": ["11010", "11020", "11030", "11040", "11050", "12010"],
       "aliases": ["Rooms 11010-11050", "Hallway After Cafeteria"],
@@ -634,24 +634,11 @@
       "type": "stairs",
       "floor": 1,
       "connects_to": [
-        "cafeteria",
-        "basement_connecting_hallway"
-      ],
-      "rooms": [],
-      "description": "Stairs going down after passing the hallway of cafeteria. This takes you to the basement."
-    },
-    {
-      "id": "basement_connecting_hallway",
-      "name": "Basement Connecting Hallway",
-      "photo": "https://fuskvtzarvhkjqpqbpgd.supabase.co/storage/v1/object/public/navigation-images/basement/cafeteria_basement/IMG_6321.jpg",
-      "type": "pathway",
-      "floor": 0,
-      "connects_to": [
-        "stairs_to_cafeteria_basement",
+        "hallway_after_cafeteria",
         "basement_big_hall"
       ],
       "rooms": [],
-      "description": "Hallway at the bottom of the stairs connecting to the main basement hall."
+      "description": "Stairs going down after passing the hallway of cafeteria. This takes you to the basement."
     },
     {
       "id": "basement_big_hall",
@@ -660,7 +647,7 @@
       "type": "pathway",
       "floor": 0,
       "connects_to": [
-        "basement_connecting_hallway",
+        "stairs_to_cafeteria_basement",
         "campus_health_center_route"
       ],
       "rooms": ["01000", "01010", "01020", "01030", "01040", "01050"],
