@@ -269,8 +269,9 @@ Consider:
 - Partial matches (e.g., "fitness" = "Fitness Center")
 - Room numbers if mentioned
 - Common synonyms
+- Printers are inside the Library: if the user asks for "printers", "printer", "where to print", or "I need to print", use location ID: library.
 
-Respond with ONLY the exact location ID from the list above (e.g., "st_larrys_pub", "cafeteria", "fitness_center").
+Respond with ONLY the exact location ID from the list above (e.g., "st_larrys_pub", "cafeteria", "fitness_center", "library").
 If no good match, respond with "NOT_FOUND"."""
 
         try:
@@ -425,6 +426,7 @@ Determine which location the user is referring to. Consider:
 - Location names (e.g., "library", "cafeteria", "main entrance")
 - Natural language descriptions (e.g., "I'm at the stairs", "where the food is")
 - Partial matches and synonyms
+- Printers are inside the Library: if the user asks for printers, printer, or where to print, respond with "Library".
 
 Respond with ONLY the exact location name from the list above, or "NOT_FOUND" if none match."""
 
@@ -489,6 +491,7 @@ CRITICAL RULES:
 - DESCRIBE WHAT THEY'LL SEE: "You'll see rooms on your right side", "Look for the green sign above the doors", "You'll see a long hallway with doors on both sides"
 - Instead of "go straight", say: "Keep walking forward", "Continue down the hallway", "Walk straight ahead through this area"
 - Instead of generic directions, describe landmarks: "Pass the BookStore on your right", "Walk past the Cafeteria", "You'll see the Library ahead"
+- If the destination is the Library (e.g. user asked for printers): mention that the printers are inside the Library so they know they've arrived at the right place
 - For hallways with rooms: "You'll see rooms numbered [X-Y] on your right/left side, keep moving forward"
 - For entrances: "You'll see this entrance/hallway ahead, walk through it"
 - Pay attention to floor numbers! If going from floor 0 to floor 1, say "go upstairs" or "go up to floor 1"

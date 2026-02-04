@@ -274,6 +274,14 @@ class NavigationSystem:
                     'location': node['name'],
                     'floor': node.get('floor', 1)
                 })
+                # Add selected aliases as separate quick destinations (e.g. "Printers" in Library)
+                for alias in node.get('destination_aliases', []):
+                    destinations.append({
+                        'type': 'location',
+                        'value': alias,
+                        'location': node['name'],
+                        'floor': node.get('floor', 1)
+                    })
         
         return destinations
 

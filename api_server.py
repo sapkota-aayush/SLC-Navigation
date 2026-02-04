@@ -3,9 +3,12 @@ Flask API server for navigation system
 Connects Python pathfinding to web frontend
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file, Response
 from flask_cors import CORS
 import os
+import requests
+from io import BytesIO
+from PIL import Image
 from ai_navigation import AINavigationSystem
 
 app = Flask(__name__)
@@ -110,6 +113,65 @@ def health():
         'status': 'ok',
         'ai_enabled': nav_system.ai_enabled
     })
+
+@app.route('/api/image/webp', methods=['GET'])
+def convert_to_webp():
+    """
+    Convert Supabase image to WebP format on-the-fly
+    Query param: url - the Supabase image URL
+    Optional param: quality - WebP quality (1-100, default: 80)
+    Optional param: max_width - max width in pixels (default: 1200)
+    """
+    image_url = request.args.get('url')
+    quality = int(request.args.get('quality', 80))
+    max_width = int(request.args.get('max_width', 1200))
+    
+    if not image_url:
+        return jsonify({'success': False, 'error': 'URL parameter required'}), 400
+    
+    try:
+        # Fetch image from Supabase
+        response = requests.get(image_url, timeout=10)
+        response.raise_for_status()
+        
+        # Open image with Pillow
+        img = Image.open(BytesIO(response.content))
+        
+        # Convert RGBA to RGB if necessary (WebP supports both, but RGB is smaller)
+        if img.mode == 'RGBA':
+            # Create white background
+            rgb_img = Image.new('RGB', img.size, (255, 255, 255))
+            rgb_img.paste(img, mask=img.split()[3])  # Use alpha channel as mask
+            img = rgb_img
+        elif img.mode not in ('RGB', 'RGBA'):
+            img = img.convert('RGB')
+        
+        # Resize if larger than max_width (maintain aspect ratio)
+        if img.width > max_width:
+            ratio = max_width / img.width
+            new_height = int(img.height * ratio)
+            img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
+        
+        # Convert to WebP
+        webp_buffer = BytesIO()
+        img.save(webp_buffer, format='WEBP', quality=quality, method=6)
+        webp_buffer.seek(0)
+        
+        # Return WebP image with proper caching
+        return Response(
+            webp_buffer.getvalue(),
+            mimetype='image/webp',
+            headers={
+                'Cache-Control': 'public, max-age=31536000',  # Cache for 1 year
+                'Content-Type': 'image/webp'
+            }
+        )
+        
+    except requests.RequestException as e:
+        return jsonify({'success': False, 'error': f'Failed to fetch image: {str(e)}'}), 500
+    except Exception as e:
+        return jsonify({'success': False, 'error': f'Failed to convert image: {str(e)}'}), 500
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))

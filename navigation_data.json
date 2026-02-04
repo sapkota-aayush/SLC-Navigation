@@ -39,7 +39,9 @@
         "main_entrance"
       ],
       "rooms": [],
-      "description": "Straight ahead from Main Entrance"
+      "aliases": ["Printers", "printer"],
+      "destination_aliases": ["Printers"],
+      "description": "Straight ahead from Main Entrance. Printers are located here."
     },
     {
       "id": "student_services",

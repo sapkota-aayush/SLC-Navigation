@@ -128,6 +128,10 @@ const Index = () => {
             } else {
               imageUrl = '/static/' + imageUrl;
             }
+          } else if (imageUrl && imageUrl.startsWith('http') && imageUrl.includes('supabase.co')) {
+            // Convert Supabase URLs to WebP via backend conversion endpoint
+            const apiBase = API_URL || '';
+            imageUrl = `${apiBase}/api/image/webp?url=${encodeURIComponent(imageUrl)}&quality=80&max_width=1200`;
           }
           // If it's already a Supabase URL (starts with http), use it directly
 
@@ -200,7 +204,6 @@ const Index = () => {
             <img src="/slcNavLogo.png" alt="SLC Navigator Logo" className="w-10 h-10 object-contain" />
             <div>
               <h1 className="font-display text-sm font-bold text-foreground leading-tight">SLC Navigator</h1>
-              <p className="text-[10px] text-muted-foreground leading-tight">St. Lawrence College</p>
             </div>
           </div>
         </div>
@@ -368,6 +371,11 @@ const Index = () => {
             </div>
           </>
         )}
+
+        {/* Disclaimer watermark */}
+        <p className="mt-auto pt-4 pb-2 px-3 text-[10px] text-muted-foreground/80 text-center">
+          Individual student project. Not affiliated with St. Lawrence College.
+        </p>
       </main>
     </div>
   );
