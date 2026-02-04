@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { MapPin, ArrowLeft, X } from "lucide-react";
+import { MapPin, ArrowLeft, X, Heart } from "lucide-react";
 import { SimplePathViewer } from "@/components/navigation/SimplePathViewer";
 import { cn } from "@/lib/utils";
 import axios from "axios";
@@ -22,6 +22,8 @@ const Index = () => {
   const [destinations, setDestinations] = useState([]);
   const [focusedField, setFocusedField] = useState(null); // Track which field has focus
   const focusedFieldRef = useRef(null); // Ref to persist focus through click events
+  const [loveSent, setLoveSent] = useState(false);
+  const [loveSending, setLoveSending] = useState(false);
 
   // Fetch destinations on mount
   useEffect(() => {
@@ -37,6 +39,21 @@ const Index = () => {
     };
     fetchDestinations();
   }, []);
+
+  const handleShowLove = async () => {
+    if (loveSent || loveSending) return;
+    setLoveSending(true);
+    try {
+      const res = await axios.post('/api/love');
+      if (res.data?.success) {
+        setLoveSent(true);
+      }
+    } catch {
+      // ignore
+    } finally {
+      setLoveSending(false);
+    }
+  };
 
   const handleSearch = async (to) => {
     if (!routeInfo.from || !to) return;
@@ -166,22 +183,38 @@ const Index = () => {
       <div className="min-h-screen bg-white">
         {/* Minimal header */}
         <header className="sticky top-0 z-50 bg-card border-b border-border">
-          <div className="px-2 py-1.5 flex items-center gap-2">
+          <div className="px-2 py-1.5 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  setShowRoute(false);
+                  setRouteSteps([]);
+                  setError(null);
+                  setRouteInfo({ from: "", to: "", instructions: "" });
+                  setSearchQuery("");
+                }}
+                className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <img src="/slcNavLogo.png" alt="SLC Navigator Logo" className="w-10 h-10 object-contain" />
+              <span className="font-display font-semibold text-sm text-foreground">SLC Navigator</span>
+            </div>
             <button
-              onClick={() => {
-                setShowRoute(false);
-                setRouteSteps([]);
-                setError(null);
-                // Clear search fields for new search
-                setRouteInfo({ from: "", to: "", instructions: "" });
-                setSearchQuery("");
-              }}
-              className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
+              type="button"
+              onClick={handleShowLove}
+              disabled={loveSending || loveSent}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all shrink-0",
+                loveSent
+                  ? "bg-accent/20 text-accent"
+                  : "bg-secondary text-muted-foreground hover:border-accent/50 hover:text-accent border border-border",
+                (loveSending || loveSent) && "pointer-events-none"
+              )}
             >
-              <ArrowLeft className="w-5 h-5" />
+              <Heart className={cn("w-4 h-4", loveSent && "fill-accent")} aria-hidden />
+              {loveSent ? "Thanks!" : loveSending ? "…" : "Show some love"}
             </button>
-            <img src="/slcNavLogo.png" alt="SLC Navigator Logo" className="w-10 h-10 object-contain" />
-            <span className="font-display font-semibold text-sm text-foreground">SLC Navigator</span>
           </div>
         </header>
 

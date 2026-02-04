@@ -11,6 +11,24 @@ from io import BytesIO
 from PIL import Image
 from ai_navigation import AINavigationSystem
 
+# Load .env for Supabase (optional)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
+
+# Optional Supabase client for "Show some love" feature
+_supabase = None
+_supabase_url = os.environ.get("SUPABASE_URL")
+_supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_KEY")
+if _supabase_url and _supabase_key:
+    try:
+        from supabase import create_client
+        _supabase = create_client(_supabase_url, _supabase_key)
+    except Exception:
+        pass
+
 app = Flask(__name__)
 # Allow all origins for CORS (including custom domain slcnavigation.aayussh.com)
 CORS(app, origins="*", allow_headers=["Content-Type"], methods=["GET", "POST", "OPTIONS"])
@@ -171,6 +189,18 @@ def convert_to_webp():
         return jsonify({'success': False, 'error': f'Failed to fetch image: {str(e)}'}), 500
     except Exception as e:
         return jsonify({'success': False, 'error': f'Failed to convert image: {str(e)}'}), 500
+
+
+@app.route('/api/love', methods=['POST'])
+def love():
+    """Record a 'Show some love' tap. Requires Supabase table app_loves (run supabase_app_loves.sql)."""
+    if _supabase is None:
+        return jsonify({'success': False, 'error': 'Love feature not configured (Supabase)'}), 503
+    try:
+        _supabase.table('app_loves').insert({}).execute()
+        return jsonify({'success': True, 'message': 'Thanks for the love!'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 
 if __name__ == '__main__':
