@@ -195,7 +195,9 @@
         "hallway_2"
       ],
       "rooms": [],
-      "description": "Large open area with Events and Banquet, Surge, and access to Fitness Center"
+      "aliases": ["ATM", "atm"],
+      "destination_aliases": ["ATM"],
+      "description": "Large open area with Events and Banquet, Surge, ATM, and access to Fitness Center"
     },
     {
       "id": "events_banquet",

@@ -270,8 +270,9 @@ Consider:
 - Room numbers if mentioned
 - Common synonyms
 - Printers are inside the Library: if the user asks for "printers", "printer", "where to print", or "I need to print", use location ID: library.
+- ATM is in the Upper Concourse: if the user asks for "ATM", "atm", or "cash machine", use location ID: upper_concourse.
 
-Respond with ONLY the exact location ID from the list above (e.g., "st_larrys_pub", "cafeteria", "fitness_center", "library").
+Respond with ONLY the exact location ID from the list above (e.g., "st_larrys_pub", "cafeteria", "fitness_center", "library", "upper_concourse").
 If no good match, respond with "NOT_FOUND"."""
 
         try:
@@ -427,6 +428,7 @@ Determine which location the user is referring to. Consider:
 - Natural language descriptions (e.g., "I'm at the stairs", "where the food is")
 - Partial matches and synonyms
 - Printers are inside the Library: if the user asks for printers, printer, or where to print, respond with "Library".
+- ATM is in the Upper Concourse: if the user asks for ATM, atm, or cash machine, respond with "Upper Concourse".
 
 Respond with ONLY the exact location name from the list above, or "NOT_FOUND" if none match."""
 
@@ -492,6 +494,7 @@ CRITICAL RULES:
 - Instead of "go straight", say: "Keep walking forward", "Continue down the hallway", "Walk straight ahead through this area"
 - Instead of generic directions, describe landmarks: "Pass the BookStore on your right", "Walk past the Cafeteria", "You'll see the Library ahead"
 - If the destination is the Library (e.g. user asked for printers): mention that the printers are inside the Library so they know they've arrived at the right place
+- If the destination is the Upper Concourse (e.g. user asked for ATM): mention that the ATM is here so they know they've arrived
 - For hallways with rooms: "You'll see rooms numbered [X-Y] on your right/left side, keep moving forward"
 - For entrances: "You'll see this entrance/hallway ahead, walk through it"
 - Pay attention to floor numbers! If going from floor 0 to floor 1, say "go upstairs" or "go up to floor 1"
