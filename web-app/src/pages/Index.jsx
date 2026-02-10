@@ -377,15 +377,27 @@ const Index = () => {
         {/* Footer: contact + disclaimer */}
         <footer className="mt-auto pt-4 pb-3 px-3 text-[10px] text-muted-foreground/80 text-center space-y-1">
           <p>Individual student project.</p>
+          <p>Not affiliated with St. Lawrence College.</p>
+          <p>
+            For any questions, please contact me at{" "}
+            <a
+              href="https://aayussh.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent underline hover:no-underline"
+            >
+              aayussh.com
+            </a>
+            .
+          </p>
           {CONTACT_EMAIL && (
             <p>
-              Contact:{" "}
+              Or email:{" "}
               <a href={`mailto:${CONTACT_EMAIL}`} className="text-accent underline hover:no-underline">
-                developer
+                {CONTACT_EMAIL}
               </a>
             </p>
           )}
-          <p className="font-medium">Not affiliated with St. Lawrence College.</p>
         </footer>
       </main>
     </div>
