@@ -216,20 +216,6 @@ export const SimplePathViewer = ({ steps, from, to, instructions = "" }) => {
         </div>
       </div>
 
-      {/* Review call-to-action */}
-      <div className="bg-background border-t border-border px-4 py-3 text-center text-xs text-muted-foreground">
-        <p className="font-medium text-foreground mb-1">Please leave a review</p>
-        <p className="mb-2">
-          Your feedback helps us improve SLC Navigator and make it better for everyone.
-        </p>
-        <a
-          href="/review"
-          className="inline-flex items-center justify-center px-3 py-1.5 rounded-md bg-accent text-accent-foreground text-xs font-semibold shadow-sm active:scale-95 transition-all hover:bg-accent/90"
-        >
-          Go to review page
-        </a>
-      </div>
-
     </div>
   );
 };
