@@ -5,6 +5,8 @@ import axios from "axios";
 
 // API base URL - use environment variable or default to relative path
 const API_URL = import.meta.env.VITE_API_URL || '';
+// Optional: set VITE_CONTACT_EMAIL in .env for "Contact" link (e.g. your@email.com)
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || '';
 
 // Configure axios to use API URL if provided
 if (API_URL) {
@@ -180,6 +182,7 @@ const Index = () => {
             </button>
             <img src="/slcNavLogo.png" alt="SLC Navigator Logo" className="w-10 h-10 object-contain" />
             <span className="font-display font-semibold text-sm text-foreground">SLC Navigator</span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-amber-100 text-amber-800 border border-amber-200">Beta</span>
           </div>
         </header>
 
@@ -200,8 +203,9 @@ const Index = () => {
         <div className="px-3 py-2">
           <div className="flex items-center gap-2.5">
             <img src="/slcNavLogo.png" alt="SLC Navigator Logo" className="w-10 h-10 object-contain" />
-            <div>
+            <div className="flex items-center gap-2">
               <h1 className="font-display text-sm font-bold text-foreground leading-tight">SLC Navigator</h1>
+              <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-amber-100 text-amber-800 border border-amber-200">Beta</span>
             </div>
           </div>
         </div>
@@ -370,10 +374,19 @@ const Index = () => {
           </>
         )}
 
-        {/* Disclaimer watermark */}
-        <p className="mt-auto pt-4 pb-2 px-3 text-[10px] text-muted-foreground/80 text-center">
-          Individual student project. Not affiliated with St. Lawrence College.
-        </p>
+        {/* Footer: contact + disclaimer */}
+        <footer className="mt-auto pt-4 pb-3 px-3 text-[10px] text-muted-foreground/80 text-center space-y-1">
+          <p>Individual student project.</p>
+          {CONTACT_EMAIL && (
+            <p>
+              Contact:{" "}
+              <a href={`mailto:${CONTACT_EMAIL}`} className="text-accent underline hover:no-underline">
+                developer
+              </a>
+            </p>
+          )}
+          <p className="font-medium">Not affiliated with St. Lawrence College.</p>
+        </footer>
       </main>
     </div>
   );
