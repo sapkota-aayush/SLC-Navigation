@@ -3,8 +3,9 @@ import { MapPin, ArrowLeft, X } from "lucide-react";
 import { SimplePathViewer } from "@/components/navigation/SimplePathViewer";
 import axios from "axios";
 
-// API base URL - use environment variable or default to relative path
-const API_URL = import.meta.env.VITE_API_URL || '';
+// Same-origin /api on Vercel. Ignore the old Railway host if it is still set.
+const rawApiUrl = import.meta.env.VITE_API_URL || '';
+const API_URL = rawApiUrl.includes('railway.app') ? '' : rawApiUrl;
 // Optional: set VITE_CONTACT_EMAIL in .env for "Contact" link (e.g. your@email.com)
 const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || '';
 
@@ -129,12 +130,7 @@ const Index = () => {
             } else {
               imageUrl = '/static/' + imageUrl;
             }
-          } else if (imageUrl && imageUrl.startsWith('http') && imageUrl.includes('supabase.co')) {
-            // Convert Supabase URLs to WebP via backend conversion endpoint
-            const apiBase = API_URL || '';
-            imageUrl = `${apiBase}/api/image/webp?url=${encodeURIComponent(imageUrl)}&quality=80&max_width=1200`;
           }
-          // If it's already a Supabase URL (starts with http), use it directly
 
           return {
             id: node.id || `step-${index}`,
